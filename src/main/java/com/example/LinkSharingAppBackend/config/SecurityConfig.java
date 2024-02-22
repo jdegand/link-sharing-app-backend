@@ -2,7 +2,6 @@ package com.example.LinkSharingAppBackend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -45,8 +44,6 @@ public class SecurityConfig {
                     auth.requestMatchers(toH2Console()).permitAll();
                     auth.requestMatchers("/auth/authenticate", "/auth/refresh", "/links", "/users/**", "/profile")
                             .permitAll();
-                    auth.requestMatchers(HttpMethod.POST, "http://localhost:8080/images").hasRole("USER");
-                    auth.requestMatchers(HttpMethod.GET, "http://localhost:8080/images/*").hasRole("USER");
                     auth.anyRequest().authenticated();
                 })
                 .csrf(csrf -> {

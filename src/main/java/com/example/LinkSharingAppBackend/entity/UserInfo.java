@@ -41,13 +41,9 @@ public class UserInfo {
 
     // Probably need separate class -> can't have 2 `email` fields in this class
     // could change email field control name in the profile form group
-
+    
     // Add updatedAt & createdAt time stamp
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "FILE_DATA_ID", referencedColumnName = "id")
-    private FileData fileData;
-
+    
     // @OneToOne(mappedBy = "userInfo", cascade = CascadeType.ALL)
     // @PrimaryKeyJoinColumn
     // @JsonIgnore

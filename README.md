@@ -25,8 +25,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - application-local.properties file with JWT secret
 - Logging / Actuator
 - Exception Handling
-- Orphan image removal -> use `CommandLineRunner` ?
-- Uploaded image filenames need to add timestamp to filename to ensure all filenames are unique
 - UserPrincipalServiceImpl -> necessary?
 - javadoc
 - need to lock down routes in `SecurityConfig`
@@ -34,7 +32,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Add model mapper or create my own DTO converters 
 - JJWT implementation is changing in near future -> recommendation is to wait until `1.0` release. 
 - placeholder profile image -> make image not required for profile form
-- Remove FileData and PhotoService
 
 ## Useful Resources
 
