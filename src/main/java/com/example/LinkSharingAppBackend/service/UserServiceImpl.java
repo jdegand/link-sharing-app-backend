@@ -21,21 +21,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public ResponseEntity<UserInfo> addUser(UserInfo userInfo) { 
+    public ResponseEntity<UserInfoDto> addUser(UserInfo userInfo) { 
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         userInfo.setRole(Role.USER);
         userInfo.setEnabled(true);
         UserInfo user = this.userInfoRepository.save(userInfo);
 
-        /* 
         UserInfoDto userInfoDto = new UserInfoDto();
         userInfoDto.setEmail(user.getEmail());
         userInfoDto.setId(user.getId());
         userInfoDto.setUsername(user.getUsername());
         userInfoDto.setRole(user.getRole());
-        */
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userInfoDto);
     }
 
     public ResponseEntity<UserInfo> findById(Integer id) {

@@ -7,7 +7,7 @@ import com.example.LinkSharingAppBackend.entity.UserInfo;
 
 public interface UserService {
     
-    public ResponseEntity<UserInfo> addUser(UserInfo userInfo);
+    public ResponseEntity<UserInfoDto> addUser(UserInfo userInfo);
 
     public ResponseEntity<UserInfo> findById(Integer id);
 
