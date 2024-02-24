@@ -18,7 +18,8 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Authentication takes a lot of work.  You wouldn't save passwords in your entity, and you would probably need a separate spring boot server that just handles login.  Then you have to handle cross origin issues.  
 - I added basic image upload functionality.  At first, I saved the photos in the file system rather than storing them in the database. 
 - In the frontend, I used `PrimeNg` and its file input component.  The file input component is shown in the documentation as standalone and not as part of a form group.  You could use `ControlValueAccessor` to get the file input inside a form group.  I refactored the frontend to send `formData` so I didn't have the issue of including the file input inside the reactive form group.   
-- I was able to make the file input component part of the profile form by storing the image data as a `lob` in the database.  You have to convert the base64 string in the frontend to display the image.  
+- I was able to make the file input component part of the profile form by storing the image data as a `lob` in the database.  You have to convert the base64 string in the frontend to display the image. 
+- The `JJWT` library has deprecated a few methods frequently used in `11.5` implementations.  So I looked into using OAuth 2 Resource server and its included JWT nimbus package.  There are some useful resources included from that research.
 
 ## Continued Development
 
@@ -27,19 +28,17 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Exception Handling
 - UserPrincipalServiceImpl -> necessary?
 - javadoc
-- need to lock down routes in `SecurityConfig`
-- cleanup and remove previous implementation interfaces
-- Add model mapper or create my own DTO converters 
-- JJWT implementation is changing in near future -> recommendation is to wait until `1.0` release. 
-- placeholder profile image -> make image not required for profile form
+- `SecurityConfig` route permissions
+- JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
+- Extend CRUD functionality
 
 ## Useful Resources
 
-- [Vecteezy]("https://www.vecteezy.com/free-vector/default-profile-picture") - Default Profile Picture Vectors by Vecteezy
+- [Vecteezy](https://www.vecteezy.com/free-vector/default-profile-picture) - Default Profile Picture Vectors by Vecteezy
 - [YouTube](https://www.youtube.com/watch?v=jQrExUrNbQE) - Spring Security Crash Course | JWT Authentication and Authorization in Spring Boot 3.1 
 - [Baeldung](https://www.baeldung.com/spring-boot-h2-database) - h2 database
 - [Blog](https://www.danvega.dev/blog/spring-security-jwt) - spring security jwt
-- [Github](https://github.com/spring-projects/spring-security/issues/13446)
+- [Github](https://github.com/spring-projects/spring-security/issues/13446) - spring security oauth2 impl
 - [Reddit](https://www.reddit.com/r/SpringBoot/comments/18kkyqo/jwt_with_spring_security_resource_server_or_with/) - jwt spring security resource server or jjwt?
 - [Spring Docs](https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/index.html) - oauth2 resource server
 - [Stack Overflow](https://stackoverflow.com/questions/60265755/spring-security-for-web-service-without-roles-and-authorities) - spring security for web service without roles and authorities

@@ -44,9 +44,6 @@ public class UserInfo {
     
     // Add updatedAt & createdAt time stamp
     
-    // @OneToOne(mappedBy = "userInfo", cascade = CascadeType.ALL)
-    // @PrimaryKeyJoinColumn
-    // @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PROFILE_ID", referencedColumnName = "id")
     private Profile profile;

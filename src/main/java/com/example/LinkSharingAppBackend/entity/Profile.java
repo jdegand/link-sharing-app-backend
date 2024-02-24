@@ -32,11 +32,6 @@ public class Profile {
 
     private String email;
 
-    // OneToOne with UserInfo
-    // @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy =
-    // "fileData")
-    // private FileData fileData;
-
     @Lob
     @Column(columnDefinition = "longblob")
     private byte[] img;
