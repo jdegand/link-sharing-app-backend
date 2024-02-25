@@ -85,3 +85,4 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/22191386/securitycontextholder-getcontext-getauthentication-returning-null) - security context holder returning null
 - [YouTube](https://www.youtube.com/watch?v=vOWcbY7sjGM) - Image Uploading || Profile Picture uploading using Postman & MySQL in Spring Boot
 - [Stack Overflow](https://stackoverflow.com/questions/29511133/what-is-the-significance-of-javax-persistence-lob-annotation-in-jpa) - @Lob
+- [Stack Overflow](https://stackoverflow.com/questions/33115446/authorization-in-spring-security-based-on-path-variables) - authorization in spring security based on path variables
