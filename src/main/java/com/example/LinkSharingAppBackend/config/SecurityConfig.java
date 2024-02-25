@@ -44,7 +44,9 @@ public class SecurityConfig {
                     auth.requestMatchers(toH2Console()).permitAll();
                     auth.requestMatchers("/auth/authenticate", "/auth/refresh", "/links", "/users/**", "/profile")
                             .permitAll();
-                    //auth.requestMatchers("/users/username/:username/id/:id").permitAll();
+                    // users/** is not enough for the request to go through
+                    // auth.requestMatchers("/users/username/:username/id/:id").permitAll(); ?
+                    // auth.anyRequest().permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .csrf(csrf -> {
