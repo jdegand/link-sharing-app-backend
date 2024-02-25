@@ -12,4 +12,6 @@ public interface UserService {
     public ResponseEntity<UserInfo> findById(Integer id);
 
     public ResponseEntity<UserInfoDto> findByEmail(String email);
+
+    public ResponseEntity<UserInfoDto> findByUsernameAndId(String username, Integer id);
 }

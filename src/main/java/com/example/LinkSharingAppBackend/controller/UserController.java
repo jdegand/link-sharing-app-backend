@@ -35,4 +35,9 @@ public class UserController {
         return userService.findByEmail(email);
     }
 
+    @GetMapping("/username/{username}/id/{userId}")
+    public ResponseEntity<UserInfoDto> getUserByUsernameAndId(@PathVariable String username, @PathVariable Integer userId) {
+        return userService.findByUsernameAndId(username, userId);
+    }
+
 }

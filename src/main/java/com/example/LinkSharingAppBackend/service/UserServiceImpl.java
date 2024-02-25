@@ -57,4 +57,19 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.ok(userInfoDto);
     }
 
+    @Override
+    public ResponseEntity<UserInfoDto> findByUsernameAndId(String username, Integer id) {
+        UserInfo foundUser = this.userInfoRepository.findByUsernameAndId(username, id).get();
+
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setId(foundUser.getId());
+        userInfoDto.setEmail(foundUser.getEmail());
+        userInfoDto.setUsername(foundUser.getUsername());
+        userInfoDto.setProfile(foundUser.getProfile());
+        userInfoDto.setRole(foundUser.getRole());
+        userInfoDto.setLinks(foundUser.getLinks());
+
+        return ResponseEntity.ok(userInfoDto);
+    }
+
 }
