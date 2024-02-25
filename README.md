@@ -31,6 +31,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - `SecurityConfig` route permissions
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
 - Extend CRUD functionality
+- Problem when user logs in for the second time -> the refresh token still exists and this causes a conflict issue -> need to reset refresh token to null beforehand
 
 ## Useful Resources
 
