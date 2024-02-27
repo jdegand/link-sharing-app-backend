@@ -27,23 +27,18 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ResponseEntity<Profile> saveProfile(ProfileDto profileDto) throws IOException {
-        /*
-         * String username =
-         * SecurityContextHolder.getContext().getAuthentication().getName();
-         * UserInfo userInfo = this.userInfoRepository.findByEmail(username).get();
-         * profile.setUserInfo(userInfo);
-         * return profileRepository.save(profile);
-        */
-        // need to convert Profile to a Dto to save the file?
-
-        // builder pattern? -> problem with OneToOne relationship -> Builder.default
 
         Profile profile = new Profile();
         profile.setEmail(profileDto.getEmail());
         profile.setFirstname(profileDto.getFirstname());
         profile.setLastname(profileDto.getLastname());
-        profile.setImg(profileDto.getFile().getBytes()); // this causes a problem if file doesn't exist
-        profile.setFileType(profileDto.getFileType());
+
+        String file = profileDto.getFile(); // the frontend formData is not sending a Multipart file but a string
+        if (file != null) {
+            byte[] fileBytes = file.getBytes();
+            profile.setImg(fileBytes);
+            profile.setFileType(profileDto.getFileType());
+        }
 
         Profile savedProfile = profileRepository.save(profile);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
