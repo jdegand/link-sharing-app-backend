@@ -36,13 +36,8 @@ public class TokenController {
                 new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (validUser.isAuthenticated()) {
 
-            // find user data with validUser.username or use validUser to pass back data?
-
-            // var validUserObj = validUser.getPrincipal();
-
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(authRequest.getEmail());
             return JwtResponse.builder()
-                    // .validUser(validUserObj)
                     .accessToken(jwtService.generateToken(authRequest.getEmail()))
                     .refreshToken(refreshToken.getToken()).build();
 
