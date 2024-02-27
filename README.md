@@ -32,7 +32,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
 - Extend CRUD functionality
 - Problem when user logs in for the second time -> the refresh token still exists and this causes a conflict issue 
-- Frontend issue with the image send back not as a Multipart file but as a string - changed to use String and thus profile images can be optional. 
+- There is a frontend issue where the image sent back is as a string (not as a Multipart file). I changed to use the ProfileDto to use String. Now, profile images can be optional.  I need to check my frontend application to see what is wrong (or leave it since it is working).  
 
 ## Useful Resources
 

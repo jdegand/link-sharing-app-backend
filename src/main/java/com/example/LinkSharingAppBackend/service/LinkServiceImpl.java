@@ -57,15 +57,5 @@ public class LinkServiceImpl implements LinkService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateLink'");
     }
-
-    /* 
-    @Override
-    public List<Link> saveLinks(List<Link> links) {
-        for(Link link: links){
-            linkRepository.save(link);
-        }
-        return linkRepository.findAll();
-    }
-    */
     
 }

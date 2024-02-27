@@ -9,8 +9,6 @@ import jakarta.persistence.EntityNotFoundException;
 public interface LinkService {
 
     public Link saveLink(Link link);
-    
-    //public List<Link> saveLinks(List<Link> links);
 
     public List<Link> fetchLinkList();
 
