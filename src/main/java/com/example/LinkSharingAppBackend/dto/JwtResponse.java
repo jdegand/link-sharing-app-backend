@@ -14,10 +14,4 @@ import lombok.Setter;
 public class JwtResponse {
     private String accessToken;
     private String refreshToken;
-    // private Object validUser;
-    // email -> validUser.validUser.username
-    // role
-    // userId
-    // private Role role;
-    // private Integer userId;
 }

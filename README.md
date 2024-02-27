@@ -32,7 +32,9 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
 - Extend CRUD functionality
 - Problem when user logs in for the second time -> the refresh token still exists and this causes a conflict issue 
-- There is a frontend issue where the image sent back is as a string (not as a Multipart file). I changed to use the ProfileDto to use String. Now, profile images can be optional.  I need to check my frontend application to see what is wrong (or leave it since it is working).  
+- There is a frontend issue where the image sent back is as a string (not as a Multipart file). I changed the ProfileDto File's type to be string. Now, profile images can be optional.  I need to check my frontend application to see what is wrong (or leave it since it is working).  
+- `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.
+- UserService's `findById` method is not really necessary.  Delete?
 
 ## Useful Resources
 

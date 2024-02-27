@@ -24,4 +24,5 @@ public class UserInfoDto {
     Role role;
     Profile profile;
     List<Link> links;
+    // could add enabled as well
 }

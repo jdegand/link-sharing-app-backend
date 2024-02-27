@@ -36,10 +36,19 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.status(HttpStatus.CREATED).body(userInfoDto);
     }
 
-    public ResponseEntity<UserInfo> findById(Integer id) {
+    public ResponseEntity<UserInfoDto> findById(Integer id) {
         UserInfo foundUser = this.userInfoRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("user", id));
-        return ResponseEntity.ok(foundUser);
+        
+        UserInfoDto userInfoDto = new UserInfoDto();
+        userInfoDto.setId(foundUser.getId());
+        userInfoDto.setEmail(foundUser.getEmail());
+        userInfoDto.setUsername(foundUser.getUsername());
+        userInfoDto.setProfile(foundUser.getProfile());
+        userInfoDto.setRole(foundUser.getRole());
+        userInfoDto.setLinks(foundUser.getLinks());
+
+        return ResponseEntity.ok(userInfoDto);
     }
 
     @Override

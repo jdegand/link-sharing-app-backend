@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserInfo> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserInfoDto> getUserById(@PathVariable Integer id) {
         return userService.findById(id);
     }
 

@@ -9,7 +9,7 @@ public interface UserService {
     
     public ResponseEntity<UserInfoDto> addUser(UserInfo userInfo);
 
-    public ResponseEntity<UserInfo> findById(Integer id);
+    public ResponseEntity<UserInfoDto> findById(Integer id);
 
     public ResponseEntity<UserInfoDto> findByEmail(String email);
 
