@@ -38,9 +38,6 @@ public class UserInfo {
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
-
-    // Probably need separate class -> can't have 2 `email` fields in this class
-    // could change email field control name in the profile form group
     
     // Add updatedAt & createdAt time stamp
     
@@ -51,4 +48,6 @@ public class UserInfo {
     @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Link> links = new ArrayList<Link>();
+
+    // missing refreshToken mapping?
 }

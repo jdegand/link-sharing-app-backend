@@ -32,13 +32,18 @@ public class ProfileServiceImpl implements ProfileService {
         profile.setEmail(profileDto.getEmail());
         profile.setFirstname(profileDto.getFirstname());
         profile.setLastname(profileDto.getLastname());
+        profile.setImg(profileDto.getFile().getBytes());
+        profile.setFileType(profileDto.getFileType()); 
 
-        String file = profileDto.getFile(); // the frontend formData is not sending a Multipart file but a string
-        if (file != null) {
-            byte[] fileBytes = file.getBytes();
-            profile.setImg(fileBytes);
-            profile.setFileType(profileDto.getFileType());
-        }
+        // the frontend sends null or a MultipartFile
+        // This creates problems -> easiest solution make `file` required 
+
+        // String file = profileDto.getFile(); 
+        // if (file != null) {
+        //    byte[] fileBytes = file.getBytes();
+        //    profile.setImg(fileBytes);
+        //    profile.setFileType(profileDto.getFileType());
+        // }
 
         Profile savedProfile = profileRepository.save(profile);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();

@@ -1,5 +1,7 @@
 package com.example.LinkSharingAppBackend.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +17,6 @@ public class ProfileDto {
     private String firstname;
     private String lastname;
     private String email;
-    //private MultipartFile file;
-    private String file;
+    private MultipartFile file;
     private String fileType;
 }
