@@ -20,6 +20,10 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - In the frontend, I used `PrimeNg` and its file input component.  The file input component is shown in the documentation as standalone and not as part of a form group.  You could use `ControlValueAccessor` to get the file input inside a form group.  I refactored the frontend to send `formData` so I didn't have the issue of including the file input inside the reactive form group.   
 - I was able to make the file input component part of the profile form by storing the image data as a `lob` in the database.  You have to convert the base64 string in the frontend to display the image. 
 - The `JJWT` library has deprecated a few methods frequently used in `11.5` implementations.  So I looked into using OAuth 2 Resource server and its included JWT nimbus package.  There are some useful resources included from that research.
+- There was a frontend issue where the image was sent back as a string. I initialized the `file` field as an empty string instead of as `null`.  The entity can't have 2 different types unless you use a generic type or `object`.  One possible solution is to have duplicate fields in the entity for either scenario.  
+- I changed the file field to be required in the frontend. 
+- There was a problem when a registered user logs in for the second time. The refresh token had a `OneToOne` relationship.  If you don't delete a refresh token already linked to a user, the user can't sign in.  A quick fix was to change to a `ManyToOne` relationship.  The database could be flooded with refresh tokens so you would have to implement a `CommandLineRunner` etc to periodically clear the refresh tokens from the database.
+- Storing refresh tokens in the database is usually taught in tutorials, but it is probably bad practice.  I will look into to alternative refresh token implementations.
 
 ## Continued Development
 
@@ -31,8 +35,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - `SecurityConfig` route permissions
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
 - Extend CRUD functionality
-- Problem when user logs in for the second time -> the refresh token still exists and this causes a conflict issue 
-- There is a frontend issue where the image sent back is as a string (not as a Multipart file). I changed the ProfileDto File's type to be string. Now, profile images can be optional.  I need to check my frontend application to see what is wrong (or leave it since it is working).  
 - `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.
 - UserService's `findById` method is not really necessary.  Delete?
 
@@ -90,3 +92,5 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [YouTube](https://www.youtube.com/watch?v=vOWcbY7sjGM) - Image Uploading || Profile Picture uploading using Postman & MySQL in Spring Boot
 - [Stack Overflow](https://stackoverflow.com/questions/29511133/what-is-the-significance-of-javax-persistence-lob-annotation-in-jpa) - @Lob
 - [Stack Overflow](https://stackoverflow.com/questions/33115446/authorization-in-spring-security-based-on-path-variables) - authorization in spring security based on path variables
+- [Stack Overflow](https://stackoverflow.com/questions/66086000/should-a-user-has-more-than-one-or-one-refresh-token-on-its-own) - should a user has more than one or one refresh token on its own
+- [Curity](https://curity.io/resources/learn/jwt-best-practices/) - jwt best practices
