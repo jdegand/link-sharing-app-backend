@@ -42,9 +42,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(toH2Console()).permitAll();
-                    auth.requestMatchers("/auth/authenticate", "/auth/refresh", "/links", "/users/**", "/profile")
+                    auth.requestMatchers("/auth/authenticate", "/auth/refresh", "/users/new", "/users/username/{username}/id/{id}")
                             .permitAll();
-                    auth.requestMatchers("/users/username/{username}/id/{id}").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .csrf(csrf -> {

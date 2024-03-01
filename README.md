@@ -94,3 +94,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/33115446/authorization-in-spring-security-based-on-path-variables) - authorization in spring security based on path variables
 - [Stack Overflow](https://stackoverflow.com/questions/66086000/should-a-user-has-more-than-one-or-one-refresh-token-on-its-own) - should a user has more than one or one refresh token on its own
 - [Curity](https://curity.io/resources/learn/jwt-best-practices/) - jwt best practices
+- [Stack Overflow](https://stackoverflow.com/questions/3021200/how-to-check-hasrole-in-java-code-with-spring-security) - how to check hasrole in java code with spring security
+- [Baeldung](https://www.baeldung.com/spring-security-method-security) - spring security method security
+- [Spring Docs](https://docs.spring.io/spring-security/reference/6.0/servlet/authorization/authorize-http-requests.html) - authorize http requests
