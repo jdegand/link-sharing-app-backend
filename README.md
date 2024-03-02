@@ -37,6 +37,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Extend CRUD functionality
 - `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.
 - UserService's `findById` method is not really necessary.  Delete?
+- Use `record` for the DTOs?
 
 ## Useful Resources
 
@@ -97,3 +98,4 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/3021200/how-to-check-hasrole-in-java-code-with-spring-security) - how to check hasrole in java code with spring security
 - [Baeldung](https://www.baeldung.com/spring-security-method-security) - spring security method security
 - [Spring Docs](https://docs.spring.io/spring-security/reference/6.0/servlet/authorization/authorize-http-requests.html) - authorize http requests
+- [Stack Overflow](https://stackoverflow.com/questions/32196451/environment-specific-application-properties-file-in-spring-boot-application) - environment specific application properties file in spring boot application 
