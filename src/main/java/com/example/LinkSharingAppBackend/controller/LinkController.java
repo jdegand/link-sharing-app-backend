@@ -1,5 +1,6 @@
 package com.example.LinkSharingAppBackend.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,12 @@ public class LinkController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteLinkById(@PathVariable("id") int linkId) {
+    public ResponseEntity<HashMap<String,String>> deleteLinkById(@PathVariable("id") int linkId) {
         linkService.deleteLinkById(linkId);
         String res = "Link " + linkId + " deleted";
-        return res;
+        HashMap<String, String> map = new HashMap<>();
+        map.put("message", res);
+        return ResponseEntity.status(200).body(map);
     }
 
     @PutMapping("/{id}")
