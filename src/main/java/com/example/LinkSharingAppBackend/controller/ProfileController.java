@@ -3,6 +3,7 @@ package com.example.LinkSharingAppBackend.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,8 @@ public class ProfileController {
 
     @PostMapping()
     public ResponseEntity<Profile> saveProfile(@ModelAttribute ProfileDto profileDto) throws IOException {
-        return profileService.saveProfile(profileDto);
+        Profile savedProfile = profileService.saveProfile(profileDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProfile);
     }
 
 }

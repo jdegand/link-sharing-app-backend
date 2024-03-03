@@ -3,8 +3,6 @@ package com.example.LinkSharingAppBackend.service;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,7 @@ public class ProfileServiceImpl implements ProfileService {
     private UserInfoRepository userInfoRepository;
 
     @Override
-    public ResponseEntity<Profile> saveProfile(ProfileDto profileDto) throws IOException {
+    public Profile saveProfile(ProfileDto profileDto) throws IOException {
 
         Profile profile = new Profile();
         profile.setEmail(profileDto.getEmail());
@@ -35,22 +33,12 @@ public class ProfileServiceImpl implements ProfileService {
         profile.setImg(profileDto.getFile().getBytes());
         profile.setFileType(profileDto.getFileType()); 
 
-        // the frontend sends null or a MultipartFile
-        // This creates problems -> easiest solution make `file` required 
-
-        // String file = profileDto.getFile(); 
-        // if (file != null) {
-        //    byte[] fileBytes = file.getBytes();
-        //    profile.setImg(fileBytes);
-        //    profile.setFileType(profileDto.getFileType());
-        // }
-
         Profile savedProfile = profileRepository.save(profile);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserInfo userInfo = this.userInfoRepository.findByEmail(username).get();
         userInfo.setProfile(savedProfile);
         userInfoRepository.save(userInfo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedProfile);
+        return savedProfile;
     }
 
     @Override
