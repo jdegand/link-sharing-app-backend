@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.LinkSharingAppBackend.dto.UserInfoDto;
 import com.example.LinkSharingAppBackend.entity.Role;
 import com.example.LinkSharingAppBackend.entity.UserInfo;
 import com.example.LinkSharingAppBackend.repository.UserInfoRepository;
@@ -28,7 +27,6 @@ public class UserServiceTests {
     @InjectMocks
     UserServiceImpl userService;
 
-    // WIP
     @Test
     public void UserInfoService_CreateUserInfo_ReturnsUserInfoDto() {
         UserInfo userInfo = new UserInfo();
@@ -37,11 +35,6 @@ public class UserServiceTests {
         userInfo.setPassword("password");
         userInfo.setEnabled(true);
         userInfo.setRole(Role.USER);
-
-        UserInfoDto userInfoDto = new UserInfoDto();
-        userInfoDto.setEmail(userInfo.getEmail());
-        userInfoDto.setRole(userInfo.getRole());
-        userInfoDto.setUsername(userInfo.getUsername());
 
         when(userInfoRepository.save(Mockito.any(UserInfo.class))).thenReturn(userInfo);
 
