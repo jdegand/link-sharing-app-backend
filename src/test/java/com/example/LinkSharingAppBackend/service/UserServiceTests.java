@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.LinkSharingAppBackend.dto.UserInfoDto;
@@ -29,6 +28,7 @@ public class UserServiceTests {
     @InjectMocks
     UserServiceImpl userService;
 
+    // WIP
     @Test
     public void UserInfoService_CreateUserInfo_ReturnsUserInfoDto() {
         UserInfo userInfo = new UserInfo();
@@ -43,12 +43,12 @@ public class UserServiceTests {
         userInfoDto.setRole(userInfo.getRole());
         userInfoDto.setUsername(userInfo.getUsername());
 
-        when(userInfoRepository.save(Mockito.any(UserInfo.class))).thenReturn(userInfo); // this might not be right
+        when(userInfoRepository.save(Mockito.any(UserInfo.class))).thenReturn(userInfo);
 
-        ResponseEntity<UserInfoDto> savedUserInfo = userService.addUser(userInfo);
+        UserInfo savedUserInfo = userService.addUser(userInfo);
 
         Assertions.assertThat(savedUserInfo).isNotNull();
-        Assertions.assertThat(savedUserInfo.getBody().getRole()).isEqualTo(Role.USER);
+        Assertions.assertThat(savedUserInfo.getRole()).isEqualTo(Role.USER);
     }
     
 }
