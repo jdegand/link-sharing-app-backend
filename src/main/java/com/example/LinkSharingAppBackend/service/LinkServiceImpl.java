@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +48,8 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public ResponseEntity<Void> deleteLinkById(Integer linkId) {
+    public void deleteLinkById(Integer linkId) {
         linkRepository.deleteById(linkId);
-        return ResponseEntity.noContent().build();
     }
 
     @Override
