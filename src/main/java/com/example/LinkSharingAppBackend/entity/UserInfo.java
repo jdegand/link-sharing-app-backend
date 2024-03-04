@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -32,7 +33,10 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String username;
+
+    @Column(unique=true)
     private String email;
+    
     private String password;
     private Boolean enabled;
 
