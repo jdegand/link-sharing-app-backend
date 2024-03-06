@@ -3,7 +3,7 @@ package com.example.LinkSharingAppBackend.service;
 import java.util.Date;
 import java.util.function.Function;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import com.example.LinkSharingAppBackend.dto.UserPrincipal;
 
 import io.jsonwebtoken.Claims;
 
@@ -15,7 +15,7 @@ public interface JwtService {
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver);
 
-    public Boolean validateToken(String token, UserDetails userDetails);
+    public Boolean validateToken(String token, UserPrincipal userPrincipal);
 
     public String generateToken(String name);
 

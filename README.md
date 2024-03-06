@@ -25,7 +25,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - There was a problem when a registered user logs in for the second time. The refresh token had a `OneToOne` relationship.  If you don't delete a refresh token already linked to a user, the user can't sign in.  A quick fix was to change to a `ManyToOne` relationship.  The database could be flooded with refresh tokens so you would have to implement a `CommandLineRunner` etc to periodically clear the refresh tokens from the database.
 - Storing refresh tokens in the database is usually taught in tutorials, but it is probably bad practice.  I will look into to alternative refresh token implementations.
 - In the course of testing, I started questioning my service implementation.  I could return a dto in the service or controller layer.  What is the better approach ?  Are the service tests less useful if the service doesn't handle the dto conversion? This [Stack Overflow](https://stackoverflow.com/questions/47822938/which-layer-should-be-used-for-conversion-to-dto-from-domain-object#:~:text=its%20best%20practice%20to%20convert,any%20logic%20in%20the%20controllers.&text=top%20down.) answer has no definitive answer.  This [Stack Exchange](https://softwareengineering.stackexchange.com/questions/400953/service-layer-returns-dto-to-controller-but-need-it-to-return-model-for-other-se) answer favors converting to DTO in the controller layer when you really need it.  This [Reddit post](https://www.reddit.com/r/SpringBoot/comments/1ao7gm1/in_which_layer_should_i_use_dto_as_return_type/?rdt=57719) favors the service layer.  
-- `@AllArgsConstructor(staticName = "build")` can be used to replace `new Profile()` etc for conversions.  
+- `@AllArgsConstructor(staticName = "build")` can be used to replace `new Profile()` etc for conversions.
 
 ## Continued Development
 
@@ -36,11 +36,13 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - javadoc
 - `SecurityConfig` route permissions
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
-- Extend CRUD functionality
+- Extend CRUD functionality.
 - `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
-- Validation
+- Validation.  Frontend validation is not to be trusted.  Frontend validation is more for user experience.  
+- Infinite loop when token is expired.
+- Having a separate refresh token may be unnecessary.  You can just pass the expired token and if it is expired, you can generate a new one with the token's subject.  
 
 ## Useful Resources
 
@@ -108,3 +110,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Medium](https://medium.com/@techisbeautiful/mastering-data-validation-in-spring-boot-best-practices-and-expert-tips-for-robust-and-secure-ba24dd79bc0a) - mastering data validation in spring boot best practices and expert tips for robust and secure
 - [Stack Overflow](https://stackoverflow.com/questions/42280355/spring-rest-api-validation-should-be-in-dto-or-in-entity) - spring rest api validation should be in dto or in entity
 - [Medium](https://medium.com/techpanel/multipartfile-with-springboot-d4901ee3e77d) - multipartfile with springboot
+- [Java In User](https://www.javainuse.com/webseries/spring-security-jwt/chap7) - spring security jwt chap7
+- [YouTube](https://www.youtube.com/watch?v=O9jhPB-zTc8) - Spring Boot Security - Refresh Expired JSON Web Token(JWT)
+- [Stack Overflow](https://stackoverflow.com/questions/49085433/jjwt-library-and-handle-expiration-expiredjwtexception) - jjwt library and handle expiration expired jwt exception

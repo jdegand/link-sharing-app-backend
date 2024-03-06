@@ -3,7 +3,6 @@ package com.example.LinkSharingAppBackend.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ public class UserPrincipalService implements UserDetailsService {
     private UserInfoRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+    public UserPrincipal loadUserByUsername(String name) throws UsernameNotFoundException {
         Optional<UserInfo> userInfo = repository.findByEmail(name);
         return userInfo.map(UserPrincipal::new)
                 .orElseThrow(() -> new UsernameNotFoundException("user " + name + " not found"));
@@ -36,7 +35,7 @@ public class UserPrincipalService implements UserDetailsService {
         
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         
-        if(principal instanceof UserDetails){
+        if(principal instanceof UserDetails){ // UserPrincipal
             userName = ((UserDetails) principal).getUsername();
         } else {
             userName = principal.toString();

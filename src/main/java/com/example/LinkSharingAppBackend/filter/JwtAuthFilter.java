@@ -5,11 +5,11 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.example.LinkSharingAppBackend.dto.UserPrincipal;
 import com.example.LinkSharingAppBackend.service.JwtService;
 import com.example.LinkSharingAppBackend.service.UserPrincipalService;
 
@@ -27,6 +27,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private UserPrincipalService userPrincipalService;
 
+    // Need to rework doFilterInternal to catch errors & throw exceptions when the token is no longer valid
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
@@ -39,10 +40,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         if (name != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userPrincipalService.loadUserByUsername(name);
-            if (jwtService.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
-                        null, userDetails.getAuthorities());
+            UserPrincipal userPrincipal = userPrincipalService.loadUserByUsername(name);
+            if (jwtService.validateToken(token, userPrincipal)) {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userPrincipal,
+                        null, userPrincipal.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
