@@ -113,3 +113,4 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Java In User](https://www.javainuse.com/webseries/spring-security-jwt/chap7) - spring security jwt chap7
 - [YouTube](https://www.youtube.com/watch?v=O9jhPB-zTc8) - Spring Boot Security - Refresh Expired JSON Web Token(JWT)
 - [Stack Overflow](https://stackoverflow.com/questions/49085433/jjwt-library-and-handle-expiration-expiredjwtexception) - jjwt library and handle expiration expired jwt exception
+- [Medium](https://medium.com/spring-boot/invalidate-revoked-the-jwt-force-logout-the-user-from-spring-security-a20ef3a2a928) - invalidate revoked the jwt force logut the user from spring security

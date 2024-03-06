@@ -27,13 +27,45 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private UserPrincipalService userPrincipalService;
 
-    // Need to rework doFilterInternal to catch errors & throw exceptions when the token is no longer valid
+    /*
+     * Need to rework doFilterInternal to catch errors & throw exceptions when the
+     * token is no longer valid
+     * 
+     * @Override
+     * protected void doFilterInternal(HttpServletRequest request,
+     * HttpServletResponse response, FilterChain filterChain)
+     * throws IOException, ServletException {
+     * String authHeader = request.getHeader("Authorization");
+     * String token = null;
+     * String name = null;
+     * if (authHeader != null && authHeader.startsWith("Bearer ")) {
+     * token = authHeader.substring(7);
+     * name = jwtService.extractUsername(token);
+     * }
+     * 
+     * if (name != null && SecurityContextHolder.getContext().getAuthentication() ==
+     * null) {
+     * UserPrincipal userPrincipal = userPrincipalService.loadUserByUsername(name);
+     * if (jwtService.validateToken(token, userPrincipal)) {
+     * UsernamePasswordAuthenticationToken authToken = new
+     * UsernamePasswordAuthenticationToken(userPrincipal,
+     * null, userPrincipal.getAuthorities());
+     * authToken.setDetails(new
+     * WebAuthenticationDetailsSource().buildDetails(request));
+     * SecurityContextHolder.getContext().setAuthentication(authToken);
+     * }
+     * }
+     * filterChain.doFilter(request, response);
+     * }
+     */
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
         String authHeader = request.getHeader("Authorization");
         String token = null;
         String name = null;
+
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             name = jwtService.extractUsername(token);
@@ -41,13 +73,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (name != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserPrincipal userPrincipal = userPrincipalService.loadUserByUsername(name);
+
             if (jwtService.validateToken(token, userPrincipal)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userPrincipal,
                         null, userPrincipal.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+            } else {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
             }
         }
+
         filterChain.doFilter(request, response);
     }
+
 }
