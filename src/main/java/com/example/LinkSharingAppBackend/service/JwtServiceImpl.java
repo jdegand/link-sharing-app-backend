@@ -50,7 +50,8 @@ public class JwtServiceImpl implements JwtService {
 
     public Boolean validateToken(String token, UserPrincipal userPrincipal) {
         final String username = extractUsername(token);
-        return (username.equals(userPrincipal.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userPrincipal.getUsername()) &&
+                !isTokenExpired(token));
     }
 
     public String generateToken(String name) {
@@ -63,7 +64,7 @@ public class JwtServiceImpl implements JwtService {
                 .setClaims(claims)
                 .setSubject(name)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 2)) // 2 mins
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 1)) // 1 mins
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
@@ -73,3 +74,23 @@ public class JwtServiceImpl implements JwtService {
     }
 
 }
+/*
+ * public Boolean validateToken(String token) {
+ * try {
+ * Jws<Claims> claims = Jwts.parserBuilder()
+ * .setSigningKey(getSignKey())
+ * .build()
+ * .parseClaimsJws(token);
+ * 
+ * return !claims.getBody().getExpiration().before(new Date());
+ * } catch (Exception e) {
+ * throw new JwtExpiredException("JWT token has expired");
+ * }
+ * }
+ * 
+ * public static class JwtExpiredException extends RuntimeException {
+ * public JwtExpiredException(String message) {
+ * super(message);
+ * }
+ * }
+ */

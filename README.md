@@ -37,7 +37,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - `SecurityConfig` route permissions
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
 - Extend CRUD functionality.
-- `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.
+- `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.  I think this a cause of some problems with `doFilter` implementation.  I changed the validateToken method.  
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
 - Validation.  Frontend validation is not to be trusted.  Frontend validation is more for user experience.  
@@ -114,3 +114,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [YouTube](https://www.youtube.com/watch?v=O9jhPB-zTc8) - Spring Boot Security - Refresh Expired JSON Web Token(JWT)
 - [Stack Overflow](https://stackoverflow.com/questions/49085433/jjwt-library-and-handle-expiration-expiredjwtexception) - jjwt library and handle expiration expired jwt exception
 - [Medium](https://medium.com/spring-boot/invalidate-revoked-the-jwt-force-logout-the-user-from-spring-security-a20ef3a2a928) - invalidate revoked the jwt force logut the user from spring security
+- [Stack Overflow](https://stackoverflow.com/questions/66549737/how-to-check-if-a-jwt-token-has-expired-without-throw-exceptions) - how to check if a jwt token has expired without throw exceptions
+- [Code Java](https://www.codejava.net/frameworks/spring-boot/spring-security-jwt-authentication-tutorial) - spring security jwt authentication tutorial
+- [Stack Overflow](https://stackoverflow.com/questions/19767267/handle-spring-security-authentication-exceptions-with-exceptionhandler) - handle spring security authentication exceptions with exceptionhandler
