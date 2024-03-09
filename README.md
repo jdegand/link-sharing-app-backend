@@ -37,10 +37,10 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - `SecurityConfig` route permissions
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
 - Extend CRUD functionality.
-- `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.  I think this a cause of some problems with `doFilter` implementation.  I changed the validateToken method.  
+- `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.  I think this is a cause of some of the problems I am having refactoring the `JwtAuthFilter`.
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
-- Validation.  Frontend validation is not to be trusted.  Frontend validation is more for user experience.  
+- Validation. Frontend validation is for user experience and cannot be trusted.  
 - Infinite loop when token is expired.
 - Having a separate refresh token may be unnecessary.  You can just pass the expired token and if it is expired, you can generate a new one with the token's subject.  
 
