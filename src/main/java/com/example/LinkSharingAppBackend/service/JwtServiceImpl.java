@@ -15,8 +15,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class JwtServiceImpl implements JwtService {
 
     // openssl rand -hex 32
@@ -45,16 +47,21 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private Boolean isTokenExpired(String token) {
+        Boolean v = extractExpiration(token).before(new Date());
+        log.info("isTokenExpired: " + v.toString());
         return extractExpiration(token).before(new Date());
     }
 
     public Boolean validateToken(String token, UserPrincipal userPrincipal) {
         final String username = extractUsername(token);
+        log.info("validated token's username is: ", extractUsername(token));
         return (username.equals(userPrincipal.getUsername()) &&
                 !isTokenExpired(token));
     }
 
     public String generateToken(String name) {
+        // name is empty
+        log.info("generateToken's name is: ", name);
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, name);
     }

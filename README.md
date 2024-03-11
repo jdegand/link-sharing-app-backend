@@ -26,6 +26,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Storing refresh tokens in the database is usually taught in tutorials, but it is probably bad practice.  I will look into to alternative refresh token implementations.
 - In the course of testing, I started questioning my service implementation.  I could return a dto in the service or controller layer.  What is the better approach ?  Are the service tests less useful if the service doesn't handle the dto conversion? This [Stack Overflow](https://stackoverflow.com/questions/47822938/which-layer-should-be-used-for-conversion-to-dto-from-domain-object#:~:text=its%20best%20practice%20to%20convert,any%20logic%20in%20the%20controllers.&text=top%20down.) answer has no definitive answer.  This [Stack Exchange](https://softwareengineering.stackexchange.com/questions/400953/service-layer-returns-dto-to-controller-but-need-it-to-return-model-for-other-se) answer favors converting to DTO in the controller layer when you really need it.  This [Reddit post](https://www.reddit.com/r/SpringBoot/comments/1ao7gm1/in_which_layer_should_i_use_dto_as_return_type/?rdt=57719) favors the service layer.  
 - `@AllArgsConstructor(staticName = "build")` can be used to replace `new Profile()` etc for conversions.
+- JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).  I would have tried to use a later version, but original post made it seem like `1.0` was closer to release than it is (6 months).  
 
 ## Continued Development
 
@@ -35,7 +36,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - UserPrincipalServiceImpl -> necessary?
 - javadoc
 - `SecurityConfig` route permissions
-- JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).
 - Extend CRUD functionality.
 - `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.  I think this is a cause of some of the problems I am having refactoring the `JwtAuthFilter`.
 - UserService's `findById` method is not really necessary.  Delete?
@@ -46,7 +46,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 
 ## Useful Resources
 
-- [Vecteezy](https://www.vecteezy.com/free-vector/default-profile-picture) - Default Profile Picture Vectors by Vecteezy
 - [YouTube](https://www.youtube.com/watch?v=jQrExUrNbQE) - Spring Security Crash Course | JWT Authentication and Authorization in Spring Boot 3.1 
 - [Baeldung](https://www.baeldung.com/spring-boot-h2-database) - h2 database
 - [Blog](https://www.danvega.dev/blog/spring-security-jwt) - spring security jwt
@@ -117,3 +116,5 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/66549737/how-to-check-if-a-jwt-token-has-expired-without-throw-exceptions) - how to check if a jwt token has expired without throw exceptions
 - [Code Java](https://www.codejava.net/frameworks/spring-boot/spring-security-jwt-authentication-tutorial) - spring security jwt authentication tutorial
 - [Stack Overflow](https://stackoverflow.com/questions/19767267/handle-spring-security-authentication-exceptions-with-exceptionhandler) - handle spring security authentication exceptions with exceptionhandler
+- [Reflectoring IO](https://reflectoring.io/bean-validation-with-spring-boot/) - bean validation with spring boot
+- [Medium](https://medium.com/@AlexanderObregon/enhancing-logging-with-log-and-slf4j-in-spring-boot-applications-f7e70c6e4cc7) - enhancing logging with log and slf4j in spring boot application

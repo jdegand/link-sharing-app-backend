@@ -17,8 +17,11 @@ import com.example.LinkSharingAppBackend.entity.RefreshToken;
 import com.example.LinkSharingAppBackend.service.JwtService;
 import com.example.LinkSharingAppBackend.service.RefreshTokenServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class TokenController {
 
     @Autowired
@@ -36,12 +39,15 @@ public class TokenController {
                 new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (validUser.isAuthenticated()) {
 
-            RefreshToken refreshToken = refreshTokenService.createRefreshToken(authRequest.getEmail());
+            String email = authRequest.getEmail();
+
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(email);
             return JwtResponse.builder()
-                    .accessToken(jwtService.generateToken(authRequest.getEmail()))
+                    .accessToken(jwtService.generateToken(email))
                     .refreshToken(refreshToken.getToken()).build();
 
         } else {
+            log.info("invalid user request!");
             throw new UsernameNotFoundException("invalid user request!");
         }
     }
