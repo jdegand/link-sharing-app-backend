@@ -118,3 +118,4 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/19767267/handle-spring-security-authentication-exceptions-with-exceptionhandler) - handle spring security authentication exceptions with exceptionhandler
 - [Reflectoring IO](https://reflectoring.io/bean-validation-with-spring-boot/) - bean validation with spring boot
 - [Medium](https://medium.com/@AlexanderObregon/enhancing-logging-with-log-and-slf4j-in-spring-boot-applications-f7e70c6e4cc7) - enhancing logging with log and slf4j in spring boot application
+- [Stack Overflow](https://stackoverflow.com/questions/54339794/how-to-get-claims-value-from-jwt-token-authentication) - how to get claims value from jwt token authentication
