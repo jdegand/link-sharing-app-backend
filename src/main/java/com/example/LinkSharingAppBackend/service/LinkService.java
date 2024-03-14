@@ -15,6 +15,4 @@ public interface LinkService {
     public Link fetchLinkById(Integer linkId) throws EntityNotFoundException;
 
     public void deleteLinkById(Integer linkId);
-
-    public Link updateLink(Integer linkId, Link link);
 }

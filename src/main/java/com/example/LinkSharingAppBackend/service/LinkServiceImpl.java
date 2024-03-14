@@ -51,11 +51,4 @@ public class LinkServiceImpl implements LinkService {
     public void deleteLinkById(Integer linkId) {
         linkRepository.deleteById(linkId);
     }
-
-    @Override
-    public Link updateLink(Integer linkId, Link link) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateLink'");
-    }
-    
 }

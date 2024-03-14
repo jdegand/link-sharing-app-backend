@@ -41,7 +41,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
 - Validation. Frontend validation is for user experience and cannot be trusted.  
-- Infinite loop when token is expired.
 - Having a separate refresh token may be unnecessary.  You can just pass the expired token and if it is expired, you can generate a new one with the token's subject.  
 
 ## Useful Resources

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,10 +52,5 @@ public class LinkController {
         HashMap<String, String> map = new HashMap<>();
         map.put("message", res);
         return ResponseEntity.status(200).body(map);
-    }
-
-    @PutMapping("/{id}")
-    public Link updateLink(@PathVariable("id") int linkId, @RequestBody Link link) {
-        return linkService.updateLink(linkId, link);
     }
 }

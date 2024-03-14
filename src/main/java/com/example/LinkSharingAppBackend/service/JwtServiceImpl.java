@@ -29,7 +29,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     public String generateToken(String email) {
-        // name is empty
+        // email is empty
         log.info("generateToken's email is: ", email);
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, email);

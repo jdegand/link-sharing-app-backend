@@ -12,8 +12,6 @@ import com.example.LinkSharingAppBackend.entity.UserInfo;
 import com.example.LinkSharingAppBackend.repository.ProfileRepository;
 import com.example.LinkSharingAppBackend.repository.UserInfoRepository;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
@@ -69,17 +67,5 @@ public class ProfileServiceImpl implements ProfileService {
         return savedProfile;
     }
     */
-
-    @Override
-    public Profile fetchProfileById(Integer profileId) throws EntityNotFoundException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'fetchProfileById'");
-    }
-
-    @Override
-    public Profile updateProfile(Integer profileId, ProfileDto profileDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProfile'");
-    }
 
 }
