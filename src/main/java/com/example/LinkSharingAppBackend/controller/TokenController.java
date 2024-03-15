@@ -14,14 +14,12 @@ import com.example.LinkSharingAppBackend.dto.AuthRequest;
 import com.example.LinkSharingAppBackend.dto.JwtResponse;
 import com.example.LinkSharingAppBackend.dto.RefreshTokenRequest;
 import com.example.LinkSharingAppBackend.entity.RefreshToken;
+import com.example.LinkSharingAppBackend.exception.InvalidTokenException;
 import com.example.LinkSharingAppBackend.service.JwtService;
 import com.example.LinkSharingAppBackend.service.RefreshTokenServiceImpl;
 
-import lombok.extern.slf4j.Slf4j;
-
 @RestController
 @RequestMapping("/auth")
-@Slf4j
 public class TokenController {
 
     @Autowired
@@ -47,8 +45,7 @@ public class TokenController {
                     .refreshToken(refreshToken.getToken()).build();
 
         } else {
-            log.info("invalid user request!");
-            throw new UsernameNotFoundException("invalid user request!");
+            throw new UsernameNotFoundException("Invalid user request!");
         }
     }
 
@@ -63,7 +60,7 @@ public class TokenController {
                             .accessToken(accessToken)
                             .refreshToken(refreshTokenRequest.getToken())
                             .build();
-                }).orElseThrow(() -> new RuntimeException(
-                        "Refresh token is not in database!"));
+                }).orElseThrow(() -> new InvalidTokenException(
+                        "Refresh token invalid"));
     }
 }
