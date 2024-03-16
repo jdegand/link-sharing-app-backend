@@ -38,6 +38,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - `SecurityConfig` route permissions
 - Extend CRUD functionality.
 - `JwtService` may have problems in some methods since `username` is actually referring to a saved `email`.  I think this is a cause of some of the problems I am having refactoring the `JwtAuthFilter`.
+- Improve Controller Advice  
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
 - Validation. Frontend validation is for user experience and cannot be trusted.  
@@ -117,3 +118,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Reflectoring IO](https://reflectoring.io/bean-validation-with-spring-boot/) - bean validation with spring boot
 - [Medium](https://medium.com/@AlexanderObregon/enhancing-logging-with-log-and-slf4j-in-spring-boot-applications-f7e70c6e4cc7) - enhancing logging with log and slf4j in spring boot application
 - [Stack Overflow](https://stackoverflow.com/questions/54339794/how-to-get-claims-value-from-jwt-token-authentication) - how to get claims value from jwt token authentication
+- [Stack Overflow](https://stackoverflow.com/questions/64015805/how-to-properly-handle-jwtexception) - how to properly handle jwtexception
+- [Medium](https://medium.com/@mandeepdhakal11/using-problemdetail-specification-for-error-response-in-spring-boot-3-5d25956ef421) - problem detail specification for error response in spring boot 3
+- [YouTube](https://www.youtube.com/watch?v=YiQYhXorMAI&t=172s) - Spring Security Exception Handling | HandlerExceptionResolver | ProblemDetail | JavaTechie

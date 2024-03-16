@@ -17,11 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.example.LinkSharingAppBackend.filter.JwtAuthFilter;
 import com.example.LinkSharingAppBackend.service.UserPrincipalService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
@@ -30,7 +32,13 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 public class SecurityConfig {
 
     @Autowired
-    private JwtAuthFilter jwtAuthFilter;
+    @Qualifier("handlerExceptionResolver")
+    private HandlerExceptionResolver exceptionResolver;
+
+    @Bean
+    public JwtAuthFilter jwtAuthFilter(){
+        return new JwtAuthFilter(exceptionResolver);
+    }
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
@@ -55,7 +63,7 @@ public class SecurityConfig {
                         .frameOptions(frameOptions -> frameOptions.sameOrigin()))
                 .authenticationProvider(authenticationProvider())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

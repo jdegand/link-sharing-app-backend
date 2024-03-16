@@ -49,6 +49,8 @@ public class TokenController {
         }
     }
 
+    // have to make sure this method throws an exception
+    // because route can't be blocked inside security config
     @PostMapping("/refresh")
     public JwtResponse refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         return refreshTokenService.findByToken(refreshTokenRequest.getToken())
