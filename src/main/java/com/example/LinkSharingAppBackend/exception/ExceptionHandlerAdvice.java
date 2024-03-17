@@ -14,7 +14,7 @@ import io.jsonwebtoken.security.SignatureException;
 public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(Exception.class)
-    public ProblemDetail handleSecurityException(Exception ex) {
+    public ProblemDetail handleSecurityException(Exception ex) {  // HttpServletRequest request
         ProblemDetail errorDetail = null;
         if (ex instanceof BadCredentialsException) {
             errorDetail = ProblemDetail
@@ -34,7 +34,8 @@ public class ExceptionHandlerAdvice {
                     .forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
             errorDetail.setProperty("access_denied_reason", "JWT Signature not valid");
         }
-        if (ex instanceof ExpiredJwtException) {
+
+        if (ex instanceof ExpiredJwtException) {  // && !request.getRequestURI().equals("/auth/refresh")
             errorDetail = ProblemDetail
                     .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
             errorDetail.setProperty("access_denied_reason", "JWT Token expired");
@@ -50,3 +51,13 @@ public class ExceptionHandlerAdvice {
     }
 
 }
+
+/*
+ * @ExceptionHandler(Exception.class)
+ * public void handleException(HttpServletRequest request, Exception ex) {
+ * String requestUrl = request.getRequestURL().toString();
+ * System.out.println("Request URL: " + requestUrl);
+ * 
+ * // Add your custom logic to handle the exception based on the request URL
+ * }
+ */

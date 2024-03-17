@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.LinkSharingAppBackend.entity.RefreshToken;
+import com.example.LinkSharingAppBackend.exception.InvalidTokenException;
 import com.example.LinkSharingAppBackend.repository.RefreshTokenRepository;
 import com.example.LinkSharingAppBackend.repository.UserInfoRepository;
 
@@ -36,7 +37,7 @@ public class RefreshTokenServiceImpl {
     public RefreshToken verifyExpiration(RefreshToken token) {
         if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
-            throw new RuntimeException(token.getToken() + " Refresh token is expired. Please sign in again.");
+            throw new InvalidTokenException(token.getToken() + " Refresh token is expired. Please sign in again.");
         }
         return token;
     }

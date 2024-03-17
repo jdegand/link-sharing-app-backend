@@ -41,7 +41,8 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Improve Controller Advice  
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
-- Validation. Frontend validation is for user experience and cannot be trusted.  
+- Validation. Frontend validation is for user experience and cannot be trusted. 
+- The refresh endpoint POST request works in Postman, but does not work with the Angular Frontend.   
 
 ## Useful Resources
 
