@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(Exception.class)
-    public ProblemDetail handleSecurityException(Exception ex) {  // HttpServletRequest request
+    public ProblemDetail handleSecurityException(Exception ex, HttpServletRequest request) {
         ProblemDetail errorDetail = null;
         if (ex instanceof BadCredentialsException) {
             errorDetail = ProblemDetail
@@ -35,10 +36,16 @@ public class ExceptionHandlerAdvice {
             errorDetail.setProperty("access_denied_reason", "JWT Signature not valid");
         }
 
-        if (ex instanceof ExpiredJwtException) {  // && !request.getRequestURI().equals("/auth/refresh")
+        // have to allow refresh request through -> otherwise, it will be blocked
+        // remove bearer in the frontend for the refresh request ?
+        // even if the route permits all -> the jwt token is passed & checked -> here
+        // && !request.getRequestURI().contains("auth/refresh")
+        if (ex instanceof ExpiredJwtException && !request.getRequestURI().equals("auth/refresh2")) {
             errorDetail = ProblemDetail
                     .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
             errorDetail.setProperty("access_denied_reason", "JWT Token expired");
+
+            // Handle refresh token request here?
         }
 
         if (ex instanceof InvalidTokenException) {
@@ -51,13 +58,3 @@ public class ExceptionHandlerAdvice {
     }
 
 }
-
-/*
- * @ExceptionHandler(Exception.class)
- * public void handleException(HttpServletRequest request, Exception ex) {
- * String requestUrl = request.getRequestURL().toString();
- * System.out.println("Request URL: " + requestUrl);
- * 
- * // Add your custom logic to handle the exception based on the request URL
- * }
- */

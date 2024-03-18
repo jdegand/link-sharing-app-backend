@@ -34,5 +34,7 @@ public class RefreshToken {
 
     @ManyToOne
     @JoinColumn(name = "user_info_id", referencedColumnName = "id") // nullable=false
-    private UserInfo userInfo;
+    @Builder.Default
+    private UserInfo userInfo = new UserInfo();
+    // potential problem using Builder without @Builder.Default for the relationship
 }

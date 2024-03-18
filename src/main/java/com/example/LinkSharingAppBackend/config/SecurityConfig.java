@@ -50,7 +50,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(toH2Console()).permitAll();
-                    auth.requestMatchers("/auth/authenticate", "/auth/refresh", "/users/new", "/users/username/{username}/id/{id}")
+                    auth.requestMatchers("/auth/authenticate", "/auth/refresh", "/auth/refresh2", "/users/new", "/users/username/{username}/id/{id}")
                             .permitAll();
                     auth.anyRequest().authenticated();
                 })

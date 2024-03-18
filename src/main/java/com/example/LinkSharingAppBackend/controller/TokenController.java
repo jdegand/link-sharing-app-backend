@@ -1,13 +1,16 @@
 package com.example.LinkSharingAppBackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.LinkSharingAppBackend.dto.AuthRequest;
@@ -49,20 +52,39 @@ public class TokenController {
         }
     }
 
-    // have to make sure this method throws an exception
-    // because route can't be blocked inside security config
+    // retuns null in the frontend -> Optional problems?
+    // JWT in header is not necessary
+    // As long as token is right, new token will be generated
     @PostMapping("/refresh")
-    public JwtResponse refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+    public ResponseEntity<JwtResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         return refreshTokenService.findByToken(refreshTokenRequest.getToken())
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUserInfo)
                 .map(userInfo -> {
                     String accessToken = jwtService.generateToken(userInfo.getEmail());
-                    return JwtResponse.builder()
+                    JwtResponse jwtResponse = JwtResponse.builder()
                             .accessToken(accessToken)
                             .refreshToken(refreshTokenRequest.getToken())
                             .build();
-                }).orElseThrow(() -> new InvalidTokenException(
-                        "Refresh token invalid"));
+                    return ResponseEntity.status(200).body(jwtResponse);
+                })
+                .orElseThrow(() -> new InvalidTokenException("Refresh token invalid"));
+    }
+
+    // I duplicated the refresh to check if the response body was the issue -> it wasn't
+    @GetMapping("/refresh2")
+    public ResponseEntity<JwtResponse> refreshToken2(@RequestParam String token) {
+        return refreshTokenService.findByToken(token)
+                .map(refreshTokenService::verifyExpiration)
+                .map(RefreshToken::getUserInfo)
+                .map(userInfo -> {
+                    String accessToken = jwtService.generateToken(userInfo.getEmail());
+                    JwtResponse jwtResponse = JwtResponse.builder()
+                            .accessToken(accessToken)
+                            .refreshToken(token)
+                            .build();
+                    return ResponseEntity.status(200).body(jwtResponse);
+                })
+                .orElseThrow(() -> new InvalidTokenException("Refresh token invalid"));
     }
 }
