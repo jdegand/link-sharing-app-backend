@@ -36,11 +36,9 @@ public class ExceptionHandlerAdvice {
             errorDetail.setProperty("access_denied_reason", "JWT Signature not valid");
         }
 
-        // have to allow refresh request through -> otherwise, it will be blocked
-        // remove bearer in the frontend for the refresh request ?
-        // even if the route permits all -> the jwt token is passed & checked -> here
-        // && !request.getRequestURI().contains("auth/refresh")
-        if (ex instanceof ExpiredJwtException && !request.getRequestURI().equals("auth/refresh2")) {
+        // && !request.getRequestURI().equals("auth/refresh") | .equals("auth/refresh2")
+        // it works better if you hit the refresh route without a bearer token vs an expired token 
+        if (ex instanceof ExpiredJwtException) {
             errorDetail = ProblemDetail
                     .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
             errorDetail.setProperty("access_denied_reason", "JWT Token expired");

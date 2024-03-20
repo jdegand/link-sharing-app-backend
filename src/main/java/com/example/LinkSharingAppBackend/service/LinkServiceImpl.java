@@ -25,8 +25,8 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public Link saveLink(Link link) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserInfo userInfo = this.userInfoRepository.findByEmail(username).get();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserInfo userInfo = this.userInfoRepository.findByEmail(email).get();
         link.setUserInfo(userInfo);
         return linkRepository.save(link);
     }
