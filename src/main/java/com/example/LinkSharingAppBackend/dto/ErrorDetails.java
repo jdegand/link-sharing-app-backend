@@ -1,7 +1,7 @@
 package com.example.LinkSharingAppBackend.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RefreshTokenRequest {
-    @NotBlank(message = "token is required")
-    private String token;
+@Builder
+public class ErrorDetails {
+    private String property;
+    private String message;
 }

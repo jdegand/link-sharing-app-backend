@@ -21,6 +21,8 @@ import com.example.LinkSharingAppBackend.exception.InvalidTokenException;
 import com.example.LinkSharingAppBackend.service.JwtService;
 import com.example.LinkSharingAppBackend.service.RefreshTokenServiceImpl;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
 public class TokenController {
@@ -35,7 +37,7 @@ public class TokenController {
     private RefreshTokenServiceImpl refreshTokenService;
 
     @PostMapping("/authenticate")
-    public JwtResponse authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+    public JwtResponse authenticateAndGetToken(@Valid @RequestBody AuthRequest authRequest) {
         Authentication validUser = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
         if (validUser.isAuthenticated()) {
@@ -53,10 +55,9 @@ public class TokenController {
     }
 
     // retuns null in the frontend -> Optional problems?
-    // JWT in header is not necessary
-    // As long as token is right, new token will be generated
+    // If expired JWT token is in header, the request will fail
     @PostMapping("/refresh")
-    public ResponseEntity<JwtResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+    public ResponseEntity<JwtResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         return refreshTokenService.findByToken(refreshTokenRequest.getToken())
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUserInfo)

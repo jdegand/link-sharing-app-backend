@@ -21,8 +21,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // create separate signup dto with just the 3 required fields?
     @PostMapping("/new")
-    public ResponseEntity<UserInfoDto> addNewUser(@RequestBody UserInfo userInfo) {
+    public ResponseEntity<UserInfoDto> addNewUser(@RequestBody UserInfo userInfo) { 
         UserInfo savedUserInfo = userService.addUser(userInfo);
 
         UserInfoDto userInfoDto = new UserInfoDto();

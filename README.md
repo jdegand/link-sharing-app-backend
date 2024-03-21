@@ -27,7 +27,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - In the course of testing, I started questioning my service implementation.  I could return a dto in the service or controller layer.  What is the better approach ?  Are the service tests less useful if the service doesn't handle the dto conversion? This [Stack Overflow](https://stackoverflow.com/questions/47822938/which-layer-should-be-used-for-conversion-to-dto-from-domain-object#:~:text=its%20best%20practice%20to%20convert,any%20logic%20in%20the%20controllers.&text=top%20down.) answer has no definitive answer.  This [Stack Exchange](https://softwareengineering.stackexchange.com/questions/400953/service-layer-returns-dto-to-controller-but-need-it-to-return-model-for-other-se) answer favors converting to DTO in the controller layer when you really need it.  This [Reddit post](https://www.reddit.com/r/SpringBoot/comments/1ao7gm1/in_which_layer_should_i_use_dto_as_return_type/?rdt=57719) favors the service layer.  
 - `@AllArgsConstructor(staticName = "build")` can be used to replace `new Profile()` etc for conversions.
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).  I would have tried to use a later version, but original post made it seem like `1.0` was closer to release than it is (6 months).  
-- In the `JwtService` methods `username` is actually referring to a saved `email`.
+- In the `JwtService` methods, `username` is actually referring to a saved `email`.
 
 ## Continued Development
 
@@ -40,7 +40,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Improve Controller Advice  
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
-- Validation. Frontend validation is for user experience and cannot be trusted.  
+- Improve validation 
 
 ## Useful Resources
 
@@ -120,3 +120,8 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/64015805/how-to-properly-handle-jwtexception) - how to properly handle jwtexception
 - [Medium](https://medium.com/@mandeepdhakal11/using-problemdetail-specification-for-error-response-in-spring-boot-3-5d25956ef421) - problem detail specification for error response in spring boot 3
 - [YouTube](https://www.youtube.com/watch?v=YiQYhXorMAI&t=172s) - Spring Security Exception Handling | HandlerExceptionResolver | ProblemDetail | JavaTechie
+- [Medium](https://medium.com/@himani.prasad016/validations-in-spring-boot-e9948aa6286b) - validations in spring boot
+- [Spring Docs](https://docs.spring.io/spring-framework/reference/core/validation/validator.html) - validator interface
+- [Baeldung](https://www.baeldung.com/hibernate-creationtimestamp-updatetimestamp) - hibernate creationtimestamp updatetimestamp
+- [Stack Overflow](https://stackoverflow.com/questions/1600291/validating-url-in-java) - validating url in java
+- [Stack Overflow](https://stackoverflow.com/questions/49856984/how-to-implement-rest-service-validation-with-spring-boot) - how to implement rest service validation with spring boot

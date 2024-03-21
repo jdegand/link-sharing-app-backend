@@ -27,7 +27,7 @@ public class LinkController {
     private LinkService linkService;
 
     @PostMapping()
-    public ResponseEntity<List<Link>> saveLink(@RequestBody List<Link> links) {
+    public ResponseEntity<List<Link>> saveLink(@RequestBody List<Link> links) { // create linkDto?
         for (Link link : links) {
             linkService.saveLink(link);
         }

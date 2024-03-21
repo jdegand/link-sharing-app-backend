@@ -1,7 +1,11 @@
 package com.example.LinkSharingAppBackend.entity;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -34,17 +38,21 @@ public class UserInfo {
     private Integer id;
     private String username;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String email;
-    
+
     private String password;
     private Boolean enabled;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
-    
-    // Add updatedAt & createdAt time stamp
-    
+
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant lastUpdatedAt;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PROFILE_ID", referencedColumnName = "id")
     private Profile profile;
