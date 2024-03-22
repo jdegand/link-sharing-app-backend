@@ -14,6 +14,8 @@ import com.example.LinkSharingAppBackend.dto.UserInfoDto;
 import com.example.LinkSharingAppBackend.entity.UserInfo;
 import com.example.LinkSharingAppBackend.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -23,7 +25,7 @@ public class UserController {
 
     // create separate signup dto with just the 3 required fields?
     @PostMapping("/new")
-    public ResponseEntity<UserInfoDto> addNewUser(@RequestBody UserInfo userInfo) { 
+    public ResponseEntity<UserInfoDto> addNewUser(@Valid @RequestBody UserInfo userInfo) { 
         UserInfo savedUserInfo = userService.addUser(userInfo);
 
         UserInfoDto userInfoDto = new UserInfoDto();

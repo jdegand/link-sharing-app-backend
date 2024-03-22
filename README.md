@@ -125,3 +125,8 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Baeldung](https://www.baeldung.com/hibernate-creationtimestamp-updatetimestamp) - hibernate creationtimestamp updatetimestamp
 - [Stack Overflow](https://stackoverflow.com/questions/1600291/validating-url-in-java) - validating url in java
 - [Stack Overflow](https://stackoverflow.com/questions/49856984/how-to-implement-rest-service-validation-with-spring-boot) - how to implement rest service validation with spring boot
+- [Stack Overflow](https://stackoverflow.com/questions/22658572/spring-annotations-modelattribute-and-valid) - spring annotations model attribute and valid
+- [Stack Overflow](https://stackoverflow.com/questions/68231771/how-can-i-validate-the-string-length-using-java-spring-validation) - how can i validate the string length using java spring validation
+- [Stack Overflow](https://stackoverflow.com/questions/3802192/regexp-java-for-password-validation) - regexp java for password validation
+- [Stack Overflow](https://stackoverflow.com/questions/48345922/reference-password-validation) - reference password validation
+- [Reflectoring](https://reflectoring.io/bean-validation-with-spring-boot/) - bean validation with spring boot
