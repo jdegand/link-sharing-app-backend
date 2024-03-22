@@ -130,3 +130,5 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/3802192/regexp-java-for-password-validation) - regexp java for password validation
 - [Stack Overflow](https://stackoverflow.com/questions/48345922/reference-password-validation) - reference password validation
 - [Reflectoring](https://reflectoring.io/bean-validation-with-spring-boot/) - bean validation with spring boot
+- [YouTube](https://www.youtube.com/watch?v=MzlLSSUoBD0) - Custom Annotations and Validation in Spring Boot with Demo | Code Decode
+- [Stack Overflow](https://stackoverflow.com/questions/76940910/spring-boot-custom-validation-annotation-not-working-as-expected) - spring boot custom validation annotation not working as expected

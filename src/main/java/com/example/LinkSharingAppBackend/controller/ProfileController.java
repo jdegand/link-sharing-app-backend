@@ -14,8 +14,6 @@ import com.example.LinkSharingAppBackend.dto.ProfileDto;
 import com.example.LinkSharingAppBackend.entity.Profile;
 import com.example.LinkSharingAppBackend.service.ProfileService;
 
-import jakarta.validation.Valid;
-
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
@@ -24,7 +22,7 @@ public class ProfileController {
     private ProfileService profileService;
 
     @PostMapping()
-    public ResponseEntity<Profile> saveProfile(@Valid @ModelAttribute ProfileDto profileDto) throws IOException {
+    public ResponseEntity<Profile> saveProfile(@ModelAttribute ProfileDto profileDto) throws IOException {
         Profile savedProfile = profileService.saveProfile(profileDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProfile);
     }
