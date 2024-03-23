@@ -60,6 +60,12 @@ public class ExceptionHandlerAdvice {
             errorDetail.setProperty("access_denied_reason", "Refresh Token invalid");
         }
 
+        if (ex instanceof SecurityException) {
+            errorDetail = ProblemDetail
+                    .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
+            errorDetail.setProperty("access_denied_reason", "Authentication Failure");
+        }
+
         /*
          * if (ex instanceof MethodArgumentNotValidException) {
          * errorDetail = ProblemDetail
