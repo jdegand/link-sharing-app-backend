@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,9 @@ import com.example.LinkSharingAppBackend.entity.Link;
 import com.example.LinkSharingAppBackend.service.LinkService;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 
+@Validated
 @RestController
 @RequestMapping("/links")
 public class LinkController {
@@ -27,7 +30,7 @@ public class LinkController {
     private LinkService linkService;
 
     @PostMapping()
-    public ResponseEntity<List<Link>> saveLink(@RequestBody List<Link> links) { // create linkDto?
+    public ResponseEntity<List<Link>> saveLink(@Valid @RequestBody List<Link> links) { // create linkDto?
         for (Link link : links) {
             linkService.saveLink(link);
         }

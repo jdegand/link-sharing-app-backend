@@ -2,7 +2,9 @@ package com.example.LinkSharingAppBackend.exception;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import com.example.LinkSharingAppBackend.dto.ErrorDetails;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
@@ -45,7 +49,8 @@ public class ExceptionHandlerAdvice {
 
         // && !request.getRequestURI().equals("auth/refresh") | .equals("auth/refresh2")
         // it works better if you hit the refresh route without a bearer token vs an
-        // expired token.  An expired token results in null being sent back to the frontend. 
+        // expired token. An expired token results in null being sent back to the
+        // frontend.
         if (ex instanceof ExpiredJwtException) {
             errorDetail = ProblemDetail
                     .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
@@ -89,6 +94,20 @@ public class ExceptionHandlerAdvice {
         }
 
         return ResponseEntity.unprocessableEntity().body(errors);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<?> handle(ConstraintViolationException constraintViolationException) {
+        Set<ConstraintViolation<?>> violations = constraintViolationException.getConstraintViolations();
+        String errorMessage = "";
+        if (!violations.isEmpty()) {
+            StringBuilder builder = new StringBuilder();
+            violations.forEach(violation -> builder.append(" " + violation.getMessage()));
+            errorMessage = builder.toString();
+        } else {
+            errorMessage = "ConstraintViolationException occured.";
+        }
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
 }

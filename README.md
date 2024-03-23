@@ -24,7 +24,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - I changed the file field to be required in the frontend. 
 - There was a problem when a registered user logs in for the second time. The refresh token had a `OneToOne` relationship.  If you don't delete a refresh token already linked to a user, the user can't sign in.  A quick fix was to change to a `ManyToOne` relationship.  The database could be flooded with refresh tokens so you would have to implement a `CommandLineRunner` etc to periodically clear the refresh tokens from the database.
 - Storing refresh tokens in the database is usually taught in tutorials, but it is probably bad practice.  I will look into to alternative refresh token implementations.
-- In the course of testing, I started questioning my service implementation.  I could return a dto in the service or controller layer.  What is the better approach ?  Are the service tests less useful if the service doesn't handle the dto conversion? This [Stack Overflow](https://stackoverflow.com/questions/47822938/which-layer-should-be-used-for-conversion-to-dto-from-domain-object#:~:text=its%20best%20practice%20to%20convert,any%20logic%20in%20the%20controllers.&text=top%20down.) answer has no definitive answer.  This [Stack Exchange](https://softwareengineering.stackexchange.com/questions/400953/service-layer-returns-dto-to-controller-but-need-it-to-return-model-for-other-se) answer favors converting to DTO in the controller layer when you really need it.  This [Reddit post](https://www.reddit.com/r/SpringBoot/comments/1ao7gm1/in_which_layer_should_i_use_dto_as_return_type/?rdt=57719) favors the service layer.  
+- In the course of testing, I started questioning my service implementation.  I could return a dto in the service or controller layer.  What is the better approach?  Are the service tests less useful if the service doesn't handle the dto conversion? This [Stack Overflow](https://stackoverflow.com/questions/47822938/which-layer-should-be-used-for-conversion-to-dto-from-domain-object#:~:text=its%20best%20practice%20to%20convert,any%20logic%20in%20the%20controllers.&text=top%20down.) answer has no definitive answer.  This [Stack Exchange](https://softwareengineering.stackexchange.com/questions/400953/service-layer-returns-dto-to-controller-but-need-it-to-return-model-for-other-se) answer favors converting to DTO in the controller layer when you really need it.  This [Reddit post](https://www.reddit.com/r/SpringBoot/comments/1ao7gm1/in_which_layer_should_i_use_dto_as_return_type/?rdt=57719) favors the service layer.  
 - `@AllArgsConstructor(staticName = "build")` can be used to replace `new Profile()` etc for conversions.
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).  I would have tried to use a later version, but original post made it seem like `1.0` was closer to release than it is (6 months).  
 - In the `JwtService` methods, `username` is actually referring to a saved `email`.
@@ -37,7 +37,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Javadoc -> add `maven-javadoc-plugin`?
 - `SecurityConfig` route permissions
 - Extend CRUD functionality
-- Improve Controller Advice  
+- Improve Controller Advice
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
 - Improve validation 
@@ -132,3 +132,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Reflectoring](https://reflectoring.io/bean-validation-with-spring-boot/) - bean validation with spring boot
 - [YouTube](https://www.youtube.com/watch?v=MzlLSSUoBD0) - Custom Annotations and Validation in Spring Boot with Demo | Code Decode
 - [Stack Overflow](https://stackoverflow.com/questions/76940910/spring-boot-custom-validation-annotation-not-working-as-expected) - spring boot custom validation annotation not working as expected
+- [YouTube](https://www.youtube.com/watch?v=DkZr7_c9ry8) - Annotations In Java Tutorial - How To Create And Use Your Own Custom Annotations
+- [Stack Overflow](https://stackoverflow.com/questions/62896233/how-to-throw-custom-exception-in-proper-way-when-using-javax-validation-valid) - how to throw custom exception in proper way when using javax validation valid
+- [Stack Overflow](https://stackoverflow.com/questions/28150405/validation-of-a-list-of-objects-in-spring) - validation of a list of objects in spring
+- [Baeldung](https://www.baeldung.com/spring-validate-list-controller) - spring validate list controller

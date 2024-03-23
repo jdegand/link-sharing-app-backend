@@ -1,5 +1,6 @@
 package com.example.LinkSharingAppBackend.entity;
 
+import com.example.LinkSharingAppBackend.validation.ValidatePlatformType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +27,11 @@ public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @ValidatePlatformType
     private String platform;
+
+    @NotBlank
     private String url;
     // private Integer order;
 
