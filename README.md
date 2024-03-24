@@ -41,6 +41,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
 - Improve validation 
+- CommandLineRunner - could add this.  Setting the file and multi-part file for profile could be problematic. 
 
 ## Useful Resources
 
@@ -136,3 +137,6 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/62896233/how-to-throw-custom-exception-in-proper-way-when-using-javax-validation-valid) - how to throw custom exception in proper way when using javax validation valid
 - [Stack Overflow](https://stackoverflow.com/questions/28150405/validation-of-a-list-of-objects-in-spring) - validation of a list of objects in spring
 - [Baeldung](https://www.baeldung.com/spring-validate-list-controller) - spring validate list controller
+- [Stack Overflow](https://stackoverflow.com/questions/9284450/jsr-303-validation-if-one-field-equals-something-then-these-other-fields-sho) - jsr 303 validation if one field equals something then these other fields sho
+- [Hibernate](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/?v=5.3#section-class-level-constraints) - type level annotations
+- [YouTube](https://www.youtube.com/watch?v=_U-3FtWzd0g) - How to write custom validation with spring boot

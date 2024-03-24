@@ -1,5 +1,6 @@
 package com.example.LinkSharingAppBackend.entity;
 
+import com.example.LinkSharingAppBackend.validation.ValidatePlatformMatch;
 import com.example.LinkSharingAppBackend.validation.ValidatePlatformType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ValidatePlatformMatch
 public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
