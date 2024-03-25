@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.example.LinkSharingAppBackend.validation.ValidateUniqueEmailType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -45,6 +46,7 @@ public class UserInfo {
     @Column(unique = true)
     @Email
     @NotBlank(message = "email is required")
+    @ValidateUniqueEmailType
     private String email;
 
     @NotBlank(message = "password is required")
