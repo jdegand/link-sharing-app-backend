@@ -68,5 +68,5 @@ public class UserInfo {
     @JsonManagedReference
     private List<Link> links = new ArrayList<Link>();
 
-    // missing refreshToken mapping?
+    // could add refreshToken mapping here as well
 }

@@ -15,7 +15,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = PlatformMatchValidator.class)
 public @interface ValidatePlatformMatch {
 
-    public String message() default "Platform & Url must match";
+    public String message() default "Platform & URL must match";
 
     Class<?>[] groups() default {};
 

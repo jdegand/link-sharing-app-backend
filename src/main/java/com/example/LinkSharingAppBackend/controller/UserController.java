@@ -22,7 +22,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    
+    /** 
+     * @param userInfo
+     * @return ResponseEntity<UserInfoDto>
+     */
     // create separate signup dto with just the 3 required fields?
     @PostMapping("/new")
     public ResponseEntity<UserInfoDto> addNewUser(@Valid @RequestBody UserInfo userInfo) { 
@@ -37,6 +41,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userInfoDto);
     }
 
+    /** 
+     * @param id
+     * @return ResponseEntity<UserInfoDto>
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UserInfoDto> getUserById(@PathVariable Integer id) {
         UserInfo foundUser = userService.findById(id);
@@ -52,6 +60,10 @@ public class UserController {
         return ResponseEntity.ok(userInfoDto);
     }
 
+    /** 
+     * @param email
+     * @return ResponseEntity<UserInfoDto>
+     */
     @GetMapping("/email/{email}")
     public ResponseEntity<UserInfoDto> getUserByEmail(@PathVariable String email) {
         UserInfo foundUser = userService.findByEmail(email);
@@ -66,7 +78,12 @@ public class UserController {
 
         return ResponseEntity.ok(userInfoDto);
     }
-
+    
+    /** 
+     * @param username
+     * @param userId
+     * @return ResponseEntity<UserInfoDto>
+     */
     @GetMapping("/username/{username}/id/{userId}")
     public ResponseEntity<UserInfoDto> getUserByUsernameAndId(@PathVariable String username,
             @PathVariable Integer userId) {

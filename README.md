@@ -32,16 +32,15 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 ## Continued Development
 
 - application-local.properties file with JWT secret
-- Improve exception handling
 - UserPrincipalServiceImpl -> necessary?
-- Javadoc -> add `maven-javadoc-plugin`?
-- `SecurityConfig` route permissions
-- Extend CRUD functionality
-- Improve Controller Advice
+- Javadoc -> could add `maven-javadoc-plugin`?
+- Could extend or reduce CRUD functionality.
 - UserService's `findById` method is not really necessary.  Delete?
 - Use `record` for the DTOs?
+- Improve exception handling
+- Improve controller advice
 - Improve validation 
-- CommandLineRunner - could add this.  Setting the file and multi-part file for profile could be problematic. 
+- Improve CommandLineRunner.  Setting the file and multi-part file for profile could be problematic. 
 
 ## Useful Resources
 

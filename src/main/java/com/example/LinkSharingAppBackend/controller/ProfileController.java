@@ -21,6 +21,11 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
+    /** 
+     * @param profileDto
+     * @return ResponseEntity<Profile>
+     * @throws IOException
+     */
     @PostMapping()
     public ResponseEntity<Profile> saveProfile(@ModelAttribute ProfileDto profileDto) throws IOException {
         Profile savedProfile = profileService.saveProfile(profileDto);

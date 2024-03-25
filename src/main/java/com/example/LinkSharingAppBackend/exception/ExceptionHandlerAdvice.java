@@ -10,14 +10,17 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.LinkSharingAppBackend.dto.ErrorDetails;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -47,7 +50,7 @@ public class ExceptionHandlerAdvice {
             errorDetail.setProperty("access_denied_reason", "JWT Signature not valid");
         }
 
-        // && !request.getRequestURI().equals("auth/refresh") | .equals("auth/refresh2")
+        // && !request.getRequestURI().equals("auth/refresh") || .equals("auth/refresh2")
         // it works better if you hit the refresh route without a bearer token vs an
         // expired token. An expired token results in null being sent back to the
         // frontend.
@@ -56,7 +59,7 @@ public class ExceptionHandlerAdvice {
                     .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
             errorDetail.setProperty("access_denied_reason", "JWT Token expired");
 
-            // Handle refresh token request here?
+            // Could handle refresh token request here
         }
 
         if (ex instanceof InvalidTokenException) {
@@ -70,14 +73,6 @@ public class ExceptionHandlerAdvice {
                     .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
             errorDetail.setProperty("access_denied_reason", "Authentication Failure");
         }
-
-        /*
-         * if (ex instanceof MethodArgumentNotValidException) {
-         * errorDetail = ProblemDetail
-         * .forStatusAndDetail(HttpStatusCode.valueOf(400), ex.getMessage());
-         * errorDetail.setProperty("access_denied_reason", "Field is missing");
-         * }
-         */
 
         return errorDetail;
     }
@@ -97,7 +92,8 @@ public class ExceptionHandlerAdvice {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<?> handle(ConstraintViolationException constraintViolationException) {
+    public ResponseEntity<?> handleConstraintViolationException(
+            ConstraintViolationException constraintViolationException) {
         Set<ConstraintViolation<?>> violations = constraintViolationException.getConstraintViolations();
         String errorMessage = "";
         if (!violations.isEmpty()) {
@@ -108,6 +104,12 @@ public class ExceptionHandlerAdvice {
             errorMessage = "ConstraintViolationException occured.";
         }
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ EntityNotFoundException.class, UsernameNotFoundException.class })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
 }

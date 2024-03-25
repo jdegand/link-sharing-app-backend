@@ -36,6 +36,10 @@ public class TokenController {
     @Autowired
     private RefreshTokenServiceImpl refreshTokenService;
 
+    /**
+     * @param authRequest
+     * @return JwtResponse
+     */
     @PostMapping("/authenticate")
     public JwtResponse authenticateAndGetToken(@Valid @RequestBody AuthRequest authRequest) {
         Authentication validUser = authenticationManager.authenticate(
@@ -54,6 +58,10 @@ public class TokenController {
         }
     }
 
+    /**
+     * @param refreshTokenRequest
+     * @return ResponseEntity<JwtResponse>
+     */
     // retuns null in the frontend -> Optional problems?
     // If expired JWT token is in header, the request will fail
     @PostMapping("/refresh")
@@ -72,7 +80,11 @@ public class TokenController {
                 .orElseThrow(() -> new InvalidTokenException("Refresh token invalid"));
     }
 
-    // I duplicated the refresh to check if the response body was the issue -> it wasn't
+    /**
+     * @param token
+     * @return ResponseEntity<JwtResponse>
+     */
+    // duplicated the refresh to see if the response body was an issue -> it wasn't
     @GetMapping("/refresh2")
     public ResponseEntity<JwtResponse> refreshToken2(@RequestParam String token) {
         return refreshTokenService.findByToken(token)
