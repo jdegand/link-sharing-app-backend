@@ -11,6 +11,6 @@ public class PlatformTypeValidator implements ConstraintValidator<ValidatePlatfo
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         List<String> platforms = Arrays.asList("github", "youtube", "facebook", "instagram", "twitter", "linkedin");
-        return platforms.contains(value); // value.toLowerCase()
+        return platforms.contains(value.toLowerCase());
     }
 }
