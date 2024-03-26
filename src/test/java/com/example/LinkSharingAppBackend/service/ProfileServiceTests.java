@@ -73,6 +73,5 @@ public class ProfileServiceTests {
         Assertions.assertThat(savedProfile.getFirstname()).isEqualTo("John");
         verify(this.profileRepository, times(1)).save(profile); // fails here
     }
-    
 
 }

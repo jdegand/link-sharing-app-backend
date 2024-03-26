@@ -21,7 +21,7 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    /** 
+    /**
      * @param profileDto
      * @return ResponseEntity<Profile>
      * @throws IOException

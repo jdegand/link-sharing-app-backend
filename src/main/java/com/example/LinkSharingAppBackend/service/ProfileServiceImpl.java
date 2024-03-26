@@ -39,33 +39,35 @@ public class ProfileServiceImpl implements ProfileService {
         return savedProfile;
     }
 
-    /* 
-    @Override
-    public Profile saveProfile(ProfileDto profileDto) throws IOException {
-        Profile profile = new Profile();
-        profile.setEmail(profileDto.getEmail());
-        profile.setFirstname(profileDto.getFirstname());
-        profile.setLastname(profileDto.getLastname());
-        profile.setImg(profileDto.getFile().getBytes());
-        profile.setFileType(profileDto.getFileType());
-
-        Profile savedProfile = profileRepository.save(profile);
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (username != null) {
-            UserInfo userInfo = this.userInfoRepository.findByEmail(username); // need to remove optional
-            if (userInfo != null) {
-                userInfo.setProfile(savedProfile);
-                userInfoRepository.save(userInfo);
-            } else {
-                // Handle case where userInfo is null
-            }
-        } else {
-            // Handle case where username is null
-        }
-
-        return savedProfile;
-    }
-    */
+    /*
+     * @Override
+     * public Profile saveProfile(ProfileDto profileDto) throws IOException {
+     * Profile profile = new Profile();
+     * profile.setEmail(profileDto.getEmail());
+     * profile.setFirstname(profileDto.getFirstname());
+     * profile.setLastname(profileDto.getLastname());
+     * profile.setImg(profileDto.getFile().getBytes());
+     * profile.setFileType(profileDto.getFileType());
+     * 
+     * Profile savedProfile = profileRepository.save(profile);
+     * 
+     * String username =
+     * SecurityContextHolder.getContext().getAuthentication().getName();
+     * if (username != null) {
+     * UserInfo userInfo = this.userInfoRepository.findByEmail(username); // need to
+     * remove optional
+     * if (userInfo != null) {
+     * userInfo.setProfile(savedProfile);
+     * userInfoRepository.save(userInfo);
+     * } else {
+     * // Handle case where userInfo is null
+     * }
+     * } else {
+     * // Handle case where username is null
+     * }
+     * 
+     * return savedProfile;
+     * }
+     */
 
 }

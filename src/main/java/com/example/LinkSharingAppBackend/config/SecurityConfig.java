@@ -36,7 +36,7 @@ public class SecurityConfig {
     private HandlerExceptionResolver exceptionResolver;
 
     @Bean
-    public JwtAuthFilter jwtAuthFilter(){
+    public JwtAuthFilter jwtAuthFilter() {
         return new JwtAuthFilter(exceptionResolver);
     }
 
@@ -50,7 +50,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(toH2Console()).permitAll();
-                    auth.requestMatchers("/auth/authenticate", "/auth/refresh", "/auth/refresh2", "/users/new", "/users/username/{username}/id/{id}")
+                    auth.requestMatchers("/auth/authenticate", "/auth/refresh", "/auth/refresh2", "/users/new",
+                            "/users/username/{username}/id/{id}")
                             .permitAll();
                     auth.anyRequest().authenticated();
                 })

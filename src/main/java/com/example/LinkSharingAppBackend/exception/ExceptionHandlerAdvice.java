@@ -50,7 +50,8 @@ public class ExceptionHandlerAdvice {
             errorDetail.setProperty("access_denied_reason", "JWT Signature not valid");
         }
 
-        // && !request.getRequestURI().equals("auth/refresh") || .equals("auth/refresh2")
+        // && !request.getRequestURI().equals("auth/refresh") ||
+        // !request.getRequestURI().equals("auth/refresh2")
         // it works better if you hit the refresh route without a bearer token vs an
         // expired token. An expired token results in null being sent back to the
         // frontend.

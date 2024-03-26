@@ -28,7 +28,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - `@AllArgsConstructor(staticName = "build")` can be used to replace `new Profile()` etc for conversions.
 - JJWT implementation is changing in the near future (recommendation is to wait until `1.0` release).  I would have tried to use a later version, but original post made it seem like `1.0` was closer to release than it is (6 months).  
 - In the `JwtService` methods, `username` is actually referring to a saved `email`.
-- There is a problem adding a custom validator to make sure the `UserInfo` email is unique.  `Autowiring` the UserInfo repository does not work and the application will not start.  Part of the reason is the fact I use `new` to create the objects and thus the objects are not under Spring's control.  This [Stack Overflow](https://stackoverflow.com/questions/72152222/spring-boot-repository-does-not-autowire-in-the-custom-validator) gives a good overview of the problem and potential remedies.  
+- There is a problem adding a custom validator to make sure the `UserInfo` email is unique. `Autowiring` the UserInfo repository does not work, and the application will not start. Part of the reason is the fact that I use `new` to create the objects, and thus these objects are not under Spring's control. This [Stack Overflow](https://stackoverflow.com/questions/72152222/spring-boot-repository-does-not-autowire-in-the-custom-validator) gives a good overview of the problem and potential remedies.
 
 ## Continued Development
 

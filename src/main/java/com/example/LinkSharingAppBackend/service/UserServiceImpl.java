@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserInfo addUser(UserInfo userInfo) { 
+    public UserInfo addUser(UserInfo userInfo) {
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         userInfo.setRole(Role.USER);
         userInfo.setEnabled(true);

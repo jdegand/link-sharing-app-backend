@@ -24,27 +24,4 @@ public class UserPrincipalService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("user " + name + " not found"));
 
     }
-
-    // get currentUser method 
-    // use this to add the relationship to the new objects
-
-    /*
-    public User getCurrentUser(){
-        Optional<User> user;
-        String userName;
-        
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        
-        if(principal instanceof UserDetails){ // UserPrincipal
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        
-        if(userRepository.existsByUsername(userName)){
-            user = userService.findByUsername(userName);
-        } 
-        return user.get();
-    } 
-    */
 }

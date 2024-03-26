@@ -38,7 +38,7 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public Link fetchLinkById(Integer linkId) throws EntityNotFoundException {
-     Optional<Link> link = linkRepository.findById(linkId);
+        Optional<Link> link = linkRepository.findById(linkId);
 
         if (!link.isPresent()) {
             throw new EntityNotFoundException("Link Not Available");

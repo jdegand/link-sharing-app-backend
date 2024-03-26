@@ -22,16 +22,6 @@ public class UniqueEmailValidator implements ConstraintValidator<ValidateUniqueE
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    /*
-     * 
-     * private final UserInfoRepository userInfoRepository;
-     * 
-     * @Autowired
-     * public UniqueEmailValidator(UserInfoRepository userInfoRepository) {
-     * this.userInfoRepository = userInfoRepository;
-     * }
-     */
-
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         Optional<UserInfo> foundUserInfo = this.userInfoRepository.findByEmail(value);

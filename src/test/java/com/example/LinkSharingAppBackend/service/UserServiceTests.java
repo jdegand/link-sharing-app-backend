@@ -87,5 +87,5 @@ public class UserServiceTests {
         Assertions.assertThat(savedUserInfo.getUsername()).isEqualTo("aaa");
         verify(this.userInfoRepository, times(1)).findByUsernameAndId("aaa", 232);
     }
-    
+
 }

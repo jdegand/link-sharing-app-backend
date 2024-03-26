@@ -27,5 +27,5 @@ public class BootstrapCommandLineRunner implements CommandLineRunner {
 
         this.userInfoRepository.save(adminUser);
     }
-    
+
 }
