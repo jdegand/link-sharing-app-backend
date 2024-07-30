@@ -16,12 +16,12 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - User roles could be useful to add extra functionality.  Maybe, a user could click a button and be able to add more links than a `free` or default user.  
 - I don't want to add too many properties to `UserInfo`.  It could be better to create an intermediate entity called `Profile` and save the `Link` and `UserInfo` IDs and extra properties inside it.  But it doesn't really matter since I am going to send only DTOs back to the frontend.
 - Authentication takes a lot of work.  You wouldn't save passwords in your entity, and you would probably need a separate spring boot server that just handles login.  Then you have to handle cross origin issues.  
-- I added basic image upload functionality.  At first, I saved the photos in the file system rather than storing them in the database. 
-- In the frontend, I used `PrimeNg` and its file input component.  The file input component is shown in the documentation as standalone and not as part of a form group.  You could use `ControlValueAccessor` to get the file input inside a form group.  I refactored the frontend to send `formData` so I didn't have the issue of including the file input inside the reactive form group.   
-- I was able to make the file input component part of the profile form by storing the image data as a `lob` in the database.  You have to convert the base64 string in the frontend to display the image. 
+- I added basic image upload functionality.  At first, I saved the photos in the file system rather than storing them in the database.
+- In the frontend, I used `PrimeNg` and its file input component.  The file input component is shown in the documentation as standalone and not as part of a form group.  You could use `ControlValueAccessor` to get the file input inside a form group.  I refactored the frontend to send `formData` so I didn't have the issue of including the file input inside the reactive form group.
+- I was able to make the file input component part of the profile form by storing the image data as a `lob` in the database.  You have to convert the base64 string in the frontend to display the image.
 - The `JJWT` library has deprecated a few methods frequently used in `11.5` implementations.  So I looked into using OAuth 2 Resource server and its included JWT nimbus package.  There are some useful resources included from that research.
 - There was a frontend issue where the image was sent back as a string. I initialized the `file` field as an empty string instead of as `null`.  The entity can't have 2 different types unless you use a generic type or `object`.  One possible solution is to have duplicate fields in the entity for either scenario.  
-- I changed the file field to be required in the frontend. 
+- I changed the file field to be required in the frontend.
 - There was a problem when a registered user logs in for the second time. The refresh token had a `OneToOne` relationship.  If you don't delete a refresh token already linked to a user, the user can't sign in.  A quick fix was to change to a `ManyToOne` relationship.  The database could be flooded with refresh tokens so you would have to implement a `CommandLineRunner` etc to periodically clear the refresh tokens from the database.
 - Storing refresh tokens in the database is usually taught in tutorials, but it is probably bad practice.  I will look into to alternative refresh token implementations.
 - In the course of testing, I started questioning my service implementation.  I could return a dto in the service or controller layer.  What is the better approach?  Are the service tests less useful if the service doesn't handle the dto conversion? This [Stack Overflow](https://stackoverflow.com/questions/47822938/which-layer-should-be-used-for-conversion-to-dto-from-domain-object#:~:text=its%20best%20practice%20to%20convert,any%20logic%20in%20the%20controllers.&text=top%20down.) answer has no definitive answer.  This [Stack Exchange](https://softwareengineering.stackexchange.com/questions/400953/service-layer-returns-dto-to-controller-but-need-it-to-return-model-for-other-se) answer favors converting to DTO in the controller layer when you really need it.  This [Reddit post](https://www.reddit.com/r/SpringBoot/comments/1ao7gm1/in_which_layer_should_i_use_dto_as_return_type/?rdt=57719) favors the service layer.  
@@ -40,12 +40,12 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - Use `record` for the DTOs?
 - Improve exception handling
 - Improve controller advice
-- Improve validation 
-- Improve or delete CommandLineRunner.  Setting the file and multi-part file for profile could be problematic. 
+- Improve validation
+- Improve or delete CommandLineRunner.  Setting the file and multi-part file for profile could be problematic.
 
 ## Useful Resources
 
-- [YouTube](https://www.youtube.com/watch?v=jQrExUrNbQE) - Spring Security Crash Course | JWT Authentication and Authorization in Spring Boot 3.1 
+- [YouTube](https://www.youtube.com/watch?v=jQrExUrNbQE) - Spring Security Crash Course | JWT Authentication and Authorization in Spring Boot 3.1
 - [Baeldung](https://www.baeldung.com/spring-boot-h2-database) - h2 database
 - [Blog](https://www.danvega.dev/blog/spring-security-jwt) - spring security jwt
 - [Github](https://github.com/spring-projects/spring-security/issues/13446) - spring security oauth2 impl
@@ -81,7 +81,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/64543266/mocking-authenticationprincipal-for-a-unit-test) - mocking authnetication principal for a unit test
 - [Stack Overflow](https://stackoverflow.com/questions/20603638/what-is-the-use-of-annotations-id-and-generatedvaluestrategy-generationtype) - generation types
 - [CodeRanch](https://coderanch.com/t/695720/databases/int-Integer-JPA-entity-Id) - int vs Integer in entities
-- [YouTube](https://www.youtube.com/watch?v=k29A07LCRY8) - Full Stack Mastery: Let's Build E-Commerce Project with Spring Boot, Angular & MySQL 
+- [YouTube](https://www.youtube.com/watch?v=k29A07LCRY8) - Full Stack Mastery: Let's Build E-Commerce Project with Spring Boot, Angular & MySQL
 - [YouTube](https://www.youtube.com/watch?v=pqahN8UDQOU&list=PLgYFT7gUQL8E6DmEySCcSdNvQlKVYfEd7&index=6) - Creating Signup API, WebSecurity & Admin Account | E-Commerce Project Spring Boot + Angular | Part 6
 - [Stack Overflow](https://stackoverflow.com/questions/73295132/how-do-i-bind-a-primeng-file-upload-component-to-my-angular-form-control) - how do I bind a primeng file upload component to my angular form control
 - [Stack Blitz](https://stackblitz.com/edit/jhcz9a?file=src%2Fapp%2FFileUploadControlValueAccessor.directive.ts) - FileUploadControlValueAccessor
@@ -101,7 +101,7 @@ This is a Spring Boot backend designed to work with this [frontend](https://gith
 - [Stack Overflow](https://stackoverflow.com/questions/3021200/how-to-check-hasrole-in-java-code-with-spring-security) - how to check hasrole in java code with spring security
 - [Baeldung](https://www.baeldung.com/spring-security-method-security) - spring security method security
 - [Spring Docs](https://docs.spring.io/spring-security/reference/6.0/servlet/authorization/authorize-http-requests.html) - authorize http requests
-- [Stack Overflow](https://stackoverflow.com/questions/32196451/environment-specific-application-properties-file-in-spring-boot-application) - environment specific application properties file in spring boot application 
+- [Stack Overflow](https://stackoverflow.com/questions/32196451/environment-specific-application-properties-file-in-spring-boot-application) - environment specific application properties file in spring boot application
 - [Stack Overflow](https://stackoverflow.com/questions/3502279/how-to-handle-jpa-unique-constraint-violations) - how to handle jpa unique constraint violations
 - [Stack Overflow](https://stackoverflow.com/questions/360520/unit-testing-with-spring-security) - unit testing with spring security
 - [Medium](https://medium.com/@kjavaman12/testing-securitycontextholder-in-spring-security-tests-with-withmockuser-38ce8060088b) - testing securitycontextholder in spring security tests withmockuser
