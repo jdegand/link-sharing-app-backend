@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.linksharingappbackend.dto.ProfileDto;
 import com.example.linksharingappbackend.entity.Profile;
-import com.example.linksharingappbackend.entity.UserInfo;
 import com.example.linksharingappbackend.repository.ProfileRepository;
 import com.example.linksharingappbackend.repository.UserInfoRepository;
 
@@ -34,12 +33,10 @@ public class ProfileServiceImpl implements ProfileService {
         Profile savedProfile = profileRepository.save(profile);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        UserInfo userInfo = this.userInfoRepository.findByEmail(username).orElse(null);
-
-        if (userInfo != null) {
+        userInfoRepository.findByEmail(username).ifPresent(userInfo -> {
             userInfo.setProfile(savedProfile);
             userInfoRepository.save(userInfo);
-        }
+        });
 
         return savedProfile;
     }
