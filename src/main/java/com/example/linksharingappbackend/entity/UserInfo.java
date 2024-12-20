@@ -68,7 +68,7 @@ public class UserInfo {
 
     @OneToMany(mappedBy = "userInfo", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Link> links = new ArrayList<Link>();
+    private List<Link> links = new ArrayList<>();
 
     // could add refreshToken mapping here as well
 }
