@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.linksharingappbackend.constant.HttpStatusConstants;
 import com.example.linksharingappbackend.dto.ErrorDetails;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -33,46 +33,43 @@ public class ExceptionHandlerAdvice {
         ProblemDetail errorDetail = null;
         if (ex instanceof BadCredentialsException) {
             errorDetail = ProblemDetail
-                    .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
-            errorDetail.setProperty("access_denied_reason", "Authentication Failure");
+                    .forStatusAndDetail(HttpStatusConstants.UNAUTHORIZED, ex.getMessage());
+            errorDetail.setProperty("access_denied_reason", HttpStatusConstants.AUTHENTICATION_FAILURE);
         }
 
         if (ex instanceof AccessDeniedException) {
             errorDetail = ProblemDetail
-                    .forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
-            errorDetail.setProperty("access_denied_reason", "Not authorized!");
+                    .forStatusAndDetail(HttpStatusConstants.FORBIDDEN, ex.getMessage());
+            errorDetail.setProperty("access_denied_reason", HttpStatusConstants.NOT_AUTHORIZED);
 
         }
 
         if (ex instanceof SignatureException) {
             errorDetail = ProblemDetail
-                    .forStatusAndDetail(HttpStatusCode.valueOf(403), ex.getMessage());
-            errorDetail.setProperty("access_denied_reason", "JWT Signature not valid");
+                    .forStatusAndDetail(HttpStatusConstants.FORBIDDEN, ex.getMessage());
+            errorDetail.setProperty("access_denied_reason", HttpStatusConstants.JWT_SIGNATURE_NOT_VALID);
         }
 
-        // && !request.getRequestURI().equals("auth/refresh") ||
-        // !request.getRequestURI().equals("auth/refresh2")
         // it works better if you hit the refresh route without a bearer token vs an
         // expired token. An expired token results in null being sent back to the
         // frontend.
         if (ex instanceof ExpiredJwtException) {
             errorDetail = ProblemDetail
-                    .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
-            errorDetail.setProperty("access_denied_reason", "JWT Token expired");
-
+                    .forStatusAndDetail(HttpStatusConstants.UNAUTHORIZED, ex.getMessage());
+            errorDetail.setProperty("access_denied_reason", HttpStatusConstants.JWT_TOKEN_EXPIRED);
             // Could handle refresh token request here
         }
 
         if (ex instanceof InvalidTokenException) {
             errorDetail = ProblemDetail
-                    .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
-            errorDetail.setProperty("access_denied_reason", "Refresh Token invalid");
+                    .forStatusAndDetail(HttpStatusConstants.UNAUTHORIZED, ex.getMessage());
+            errorDetail.setProperty("access_denied_reason", HttpStatusConstants.REFRESH_TOKEN_INVALID);
         }
 
         if (ex instanceof SecurityException) {
             errorDetail = ProblemDetail
-                    .forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
-            errorDetail.setProperty("access_denied_reason", "Authentication Failure");
+                    .forStatusAndDetail(HttpStatusConstants.UNAUTHORIZED, ex.getMessage());
+            errorDetail.setProperty("access_denied_reason", HttpStatusConstants.AUTHENTICATION_FAILURE);
         }
 
         return errorDetail;
@@ -84,9 +81,8 @@ public class ExceptionHandlerAdvice {
         List<ErrorDetails> errors = new ArrayList<>();
 
         if (exception.getBindingResult().hasErrors()) {
-            exception.getBindingResult().getFieldErrors().forEach(error -> {
-                errors.add(new ErrorDetails(error.getField(), error.getDefaultMessage()));
-            });
+            exception.getBindingResult().getFieldErrors()
+                    .forEach(error -> errors.add(new ErrorDetails(error.getField(), error.getDefaultMessage())));
         }
 
         return ResponseEntity.unprocessableEntity().body(errors);
@@ -102,7 +98,7 @@ public class ExceptionHandlerAdvice {
             violations.forEach(violation -> builder.append(" " + violation.getMessage()));
             errorMessage = builder.toString();
         } else {
-            errorMessage = "ConstraintViolationException occured.";
+            errorMessage = "ConstraintViolationException occurred.";
         }
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
@@ -112,5 +108,4 @@ public class ExceptionHandlerAdvice {
     public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
-
 }
