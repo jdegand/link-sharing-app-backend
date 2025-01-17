@@ -11,5 +11,9 @@ public class HttpStatusConstants {
     public static final String JWT_SIGNATURE_NOT_VALID = "JWT Signature not valid";
     public static final String JWT_TOKEN_EXPIRED = "JWT Token expired";
     public static final String REFRESH_TOKEN_INVALID = "Refresh Token invalid";
-}
 
+    // Private constructor to prevent instantiation 
+    private HttpStatusConstants() { 
+        throw new UnsupportedOperationException("This is a constants class and cannot be instantiated"); 
+    }
+}
