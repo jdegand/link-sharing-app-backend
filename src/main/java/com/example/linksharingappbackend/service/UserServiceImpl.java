@@ -1,12 +1,12 @@
 package com.example.linksharingappbackend.service;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.linksharingappbackend.entity.Role;
 import com.example.linksharingappbackend.entity.UserInfo;
+import com.example.linksharingappbackend.exception.UserNotFoundException;
 import com.example.linksharingappbackend.repository.UserInfoRepository;
 
 @Service
@@ -27,17 +27,18 @@ public class UserServiceImpl implements UserService {
 
     public UserInfo findById(Integer id) {
         return this.userInfoRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("user", id));
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
 
     @Override
     public UserInfo findByEmail(String email) {
-        return this.userInfoRepository.findByEmail(email).get();
+        return this.userInfoRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
     }
 
     @Override
     public UserInfo findByUsernameAndId(String username, Integer id) {
-        return this.userInfoRepository.findByUsernameAndId(username, id).get();
+        return this.userInfoRepository.findByUsernameAndId(username, id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with username: " + username + " and id: " + id));
     }
-
 }
