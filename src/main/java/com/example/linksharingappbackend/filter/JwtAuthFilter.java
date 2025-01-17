@@ -21,16 +21,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+    private final UserPrincipalService userPrincipalService;
+    private final HandlerExceptionResolver exceptionResolver;
 
     @Autowired
-    private UserPrincipalService userPrincipalService;
-
-    private HandlerExceptionResolver exceptionResolver;
-
-    @Autowired
-    public JwtAuthFilter(HandlerExceptionResolver exceptionResolver) {
+    public JwtAuthFilter(JwtService jwtService, UserPrincipalService userPrincipalService, HandlerExceptionResolver exceptionResolver) {
+        this.jwtService = jwtService;
+        this.userPrincipalService = userPrincipalService;
         this.exceptionResolver = exceptionResolver;
     }
 
