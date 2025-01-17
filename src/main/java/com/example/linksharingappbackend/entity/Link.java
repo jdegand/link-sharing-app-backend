@@ -35,7 +35,6 @@ public class Link {
 
     @NotBlank
     private String url;
-    // private Integer order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id")
